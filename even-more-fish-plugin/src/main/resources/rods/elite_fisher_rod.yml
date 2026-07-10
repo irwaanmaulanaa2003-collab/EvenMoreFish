@@ -1,0 +1,34 @@
+id: elite_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+rarity-weights:
+  Junk: 4
+  Common: 68
+  Rare: 20
+  Epic: 7
+  Legendary: 1
+pull-power: 5
+resistance-reduction: 6.0
+item:
+  material: FISHING_ROD
+  displayname: <aqua>Elite Fisher Rod
+  glowing: true
+  lore:
+    - ''
+    - '<gray>Tier rod for custom fishing.'
+    - '<gray>Price: <green>$750,000'
+    - '<gray>Pull Power: <yellow>+5'
+    - '<gray>Resistance Reduction: <yellow>6.0%'
+    - ''
+    - '<gray>Chance: Unlocks tiny Legendary chance.'
+    - ''
+    - '<yellow>Use this rod to catch custom fish.'
+  enchantments:
+    - lure,2
+    - luck_of_the_sea,2
+    - unbreaking,3

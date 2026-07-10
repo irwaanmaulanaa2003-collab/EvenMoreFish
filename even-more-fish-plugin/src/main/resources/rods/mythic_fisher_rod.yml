@@ -1,0 +1,36 @@
+id: mythic_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+rarity-weights:
+  Junk: 2
+  Common: 60
+  Rare: 25
+  Epic: 10
+  Legendary: 2.5
+  Mythic: 0.5
+pull-power: 6
+resistance-reduction: 9.0
+item:
+  material: FISHING_ROD
+  displayname: <light_purple>Mythic Fisher Rod
+  glowing: true
+  lore:
+    - ''
+    - '<gray>Tier rod for custom fishing.'
+    - '<gray>Price: <green>$2,500,000'
+    - '<gray>Pull Power: <yellow>+6'
+    - '<gray>Resistance Reduction: <yellow>9.0%'
+    - ''
+    - '<gray>Chance: Unlocks tiny Mythic chance.'
+    - ''
+    - '<yellow>Use this rod to catch custom fish.'
+  enchantments:
+    - lure,3
+    - luck_of_the_sea,2
+    - unbreaking,4

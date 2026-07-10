@@ -1,0 +1,38 @@
+id: Divine
+disabled: false
+weight: 0.01
+item:
+  material: orange_concrete_powder
+format: <#FFD166>{name}
+worth-multiplier: 100
+broadcast:
+  enabled: true
+  only-rods: false
+  range: -1
+catch-type: both
+sort-index: 7
+size:
+  minSize: 170
+  maxSize: 200
+
+fish:
+  Divine Leviathan:
+    item:
+      material: NETHER_STAR
+      glowing: true
+  Celestial Koi:
+    item:
+      material: TROPICAL_FISH
+      glowing: true
+  Golden Dragonfish:
+    item:
+      material: GOLD_INGOT
+      glowing: true
+  Angel Axolotl:
+    item:
+      material: HEART_OF_THE_SEA
+      glowing: true
+  Ocean Emperor:
+    item:
+      material: CONDUIT
+      glowing: true

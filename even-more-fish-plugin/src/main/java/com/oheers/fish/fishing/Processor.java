@@ -91,6 +91,10 @@ public abstract class Processor<E extends Event> {
             bait.handleFish(player, fish, fishingRod);
         }
 
+        return finalizeCaughtFish(player, location, fish);
+    }
+
+    protected @Nullable ItemStack finalizeCaughtFish(@NotNull Player player, @NotNull Location location, @NotNull Fish fish) {
         fish.init();
         // Fire the fish event and check for cancellation.
         if (!fireEvent(fish, player)) {
@@ -173,7 +177,7 @@ public abstract class Processor<E extends Event> {
      * @param customRod The custom rod being used, null if no custom rod.
      * @return A random fish.
      */
-    private @Nullable Fish chooseFish(@NotNull Player player, @NotNull Location location, @Nullable BaitHandler bait, @Nullable CustomRod customRod) {
+    protected @Nullable Fish chooseFish(@NotNull Player player, @NotNull Location location, @Nullable BaitHandler bait, @Nullable CustomRod customRod) {
         RequirementContext context = new RequirementContext(
             player.getWorld(),
             location,

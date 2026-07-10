@@ -27,7 +27,11 @@ fishing:
   # Should EMF fish only be given during a competition?
   catch-only-in-competition: false
   # Should custom rods be required?
-  require-custom-rod: false
+  require-custom-rod: true
+  # If require-custom-rod is true, should vanilla rods be blocked from normal fishing too?
+  block-vanilla-rod-when-custom-required: true
+  # Should the custom right-click + shift fishing minigame be used?
+  custom-minigame-enabled: true
   # Should the plugin only override fish, keeping treasure like enchanted books?
   only-fish: false
 
@@ -37,6 +41,57 @@ fishing:
   hunt-only-in-competition: false
   # Allows spawner fish to be ignored for hunting
   hunt-ignore-spawner-fish: true
+
+
+# Custom fishing minigame configuration.
+# Flow: fish bites -> right click to hook -> spam shift to pull.
+custom-fishing-minigame:
+  enabled: true
+  hook-time-seconds: 3
+  escape-time-seconds: 5
+  progress-needed: 100
+  bobber-pull-strength: 0.18
+  messages:
+    bite: '<yellow>Fish is biting! <white>Right click within <aqua>{time}s</aqua> to hook it.'
+    hooked: '<aqua>Hooked!</aqua> <white>Spam <yellow>Shift</yellow> to pull the fish.'
+    progress: '<aqua>Pulling:</aqua> <white>{progress}%</white> <gray>| Fish: {fish}</gray>'
+    resistance: '<red>The fish fought back!</red> <gray>-{loss}% progress.</gray>'
+    escaped: '<red>The fish escaped.</red>'
+    caught: '<green>You successfully pulled the fish in!</green>'
+    vanilla-rod-blocked: '<red>You need a custom fishing rod to fish here.</red>'
+  resistance:
+    Junk:
+      chance: 2.0
+      progress-loss: 2
+    Common:
+      chance: 5.0
+      progress-loss: 3
+    Rare:
+      chance: 8.0
+      progress-loss: 5
+    Epic:
+      chance: 12.0
+      progress-loss: 7
+    Legendary:
+      chance: 18.0
+      progress-loss: 10
+    Mythic:
+      chance: 23.0
+      progress-loss: 13
+    Divine:
+      chance: 30.0
+      progress-loss: 16
+
+# Built-in custom rod shop.
+# Open from /emf GUI, then click Rod Shop.
+rod-shop:
+  enabled: true
+  prices:
+    rookie_fisher_rod: 75000
+    advanced_fisher_rod: 250000
+    elite_fisher_rod: 750000
+    mythic_fisher_rod: 2500000
+    divine_fisher_rod: 7500000
 
 # Backs up active competitions to a file.
 # Useful for crashes and such.

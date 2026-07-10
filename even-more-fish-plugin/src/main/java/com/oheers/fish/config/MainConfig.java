@@ -165,6 +165,60 @@ public class MainConfig extends ConfigBase {
         return getConfig().getBoolean("fishing.require-custom-rod", false);
     }
 
+    public boolean blockVanillaRodWhenCustomRequired() {
+        return getConfig().getBoolean("fishing.block-vanilla-rod-when-custom-required", false);
+    }
+
+    public boolean isCustomMinigameEnabled() {
+        return getConfig().getBoolean("custom-fishing-minigame.enabled", getConfig().getBoolean("fishing.custom-minigame-enabled", false));
+    }
+
+    public int getMinigameHookTimeSeconds() {
+        return getConfig().getInt("custom-fishing-minigame.hook-time-seconds", 3);
+    }
+
+    public int getMinigameEscapeTimeSeconds() {
+        return getConfig().getInt("custom-fishing-minigame.escape-time-seconds", 5);
+    }
+
+    public int getMinigameProgressNeeded() {
+        return getConfig().getInt("custom-fishing-minigame.progress-needed", 100);
+    }
+
+    public double getMinigameBobberPullStrength() {
+        return getConfig().getDouble("custom-fishing-minigame.bobber-pull-strength", 0.18D);
+    }
+
+    public double getMinigameResistanceChance(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.resistance." + rarityId + ".chance", 0.0D);
+    }
+
+    public int getMinigameResistanceLoss(@NotNull String rarityId) {
+        return getConfig().getInt("custom-fishing-minigame.resistance." + rarityId + ".progress-loss", 0);
+    }
+
+    public String getMinigameMessage(@NotNull String key, @NotNull String fallback) {
+        return getConfig().getString("custom-fishing-minigame.messages." + key, fallback);
+    }
+
+    public boolean isRodShopEnabled() {
+        return getConfig().getBoolean("rod-shop.enabled", true);
+    }
+
+    public Map<String, Double> getRodShopPrices() {
+        Section section = getConfig().getSection("rod-shop.prices");
+        if (section == null) {
+            return Map.of();
+        }
+        Map<String, Double> prices = new HashMap<>();
+        section.getRoutesAsStrings(false).forEach(key -> prices.put(key, section.getDouble(key, 0.0D)));
+        return prices;
+    }
+
+    public double getRodShopPrice(@NotNull String rodId) {
+        return getConfig().getDouble("rod-shop.prices." + rodId, -1.0D);
+    }
+
     public boolean requireFishingPermission() {
         return getConfig().getBoolean("requires-fishing-permission", false);
     }

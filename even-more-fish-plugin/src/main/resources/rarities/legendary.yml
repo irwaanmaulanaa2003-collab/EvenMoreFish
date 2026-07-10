@@ -1,10 +1,10 @@
 id: Legendary
 disabled: false
-weight: 1
+weight: 0.1
 item:
   material: yellow_concrete_powder
 format: <gold>{name}
-worth-multiplier: 0.2
+worth-multiplier: 100
 broadcast:
   enabled: true
   only-rods: false
@@ -12,8 +12,8 @@ broadcast:
 catch-type: both
 sort-index: 5
 size:
-  minSize: 800
-  maxSize: 4000
+  minSize: 100
+  maxSize: 140
 
 fish:
   King Mackerel:
@@ -47,9 +47,6 @@ fish:
   Golden Hermit Crab:
     item:
       head-64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDhiNWU0MjdkY2Y3NzFmYjhkYTY2YmUyYjc0ODBlYjE1NjhlYTUxMDA4OGZmZWM4NzAxOTRiNGUxZmQ1NmVlZSJ9fX0=
-    size:
-      minSize: 50
-      maxSize: 60
   Golden Skull:
     item:
       head-64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWI1MjIxYjI3NjRjZWY2Nzg2YWMxNWVhMDc1NzY4N2UyM2I5NTM2ODY0NTIwMzI0ZGQ0MzkzYjdhYmVhZDFkMSJ9fX0=

@@ -3,10 +3,14 @@ package com.oheers.fish.gui;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.config.GuiConfig;
 import com.oheers.fish.config.MainConfig;
+import com.oheers.fish.api.economy.Economy;
+import com.oheers.fish.fishing.rods.CustomRod;
+import com.oheers.fish.fishing.rods.RodManager;
 import com.oheers.fish.database.DatabaseUtil;
 import com.oheers.fish.gui.guis.BaitsGui;
 import com.oheers.fish.gui.guis.FishJournalGui;
 import com.oheers.fish.gui.guis.MainMenuGui;
+import com.oheers.fish.gui.guis.RodShopGui;
 import com.oheers.fish.gui.guis.SellGui;
 import com.oheers.fish.items.ItemFactory;
 import com.oheers.fish.messages.ConfigMessage;
@@ -21,6 +25,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -114,6 +119,20 @@ public class GuiUtils {
             new SellGui(player, SellGui.SellState.NORMAL, null).open();
             clearHistory(click.getWhoClicked());
         });
+        newActionMap.put("open-rod-shop", (gui, click) -> {
+            if (!MainConfig.getInstance().isRodShopEnabled()) {
+                click.getWhoClicked().sendMessage(Component.text("Rod shop is disabled."));
+                return;
+            }
+            if (gui != null) {
+                gui.doRescue();
+            }
+            new RodShopGui(click.getWhoClicked()).open();
+            clearHistory(click.getWhoClicked());
+        });
+        MainConfig.getInstance().getRodShopPrices().forEach((rodId, price) ->
+            newActionMap.put("buy-rod-" + rodId, (gui, click) -> buyRod(click.getWhoClicked(), rodId, price))
+        );
         newActionMap.put("show-command-help", (gui, click) -> {
             click.getWhoClicked().closeInventory();
             if (click.getWhoClicked() instanceof Player player) {
@@ -190,6 +209,31 @@ public class GuiUtils {
         newActionMap.put("last-page", (gui, click) -> {});
 
         return newActionMap;
+    }
+
+    private static void buyRod(@NotNull HumanEntity human, @NotNull String rodId, double price) {
+        if (!(human instanceof Player player)) {
+            return;
+        }
+        CustomRod rod = RodManager.getInstance().getRod(rodId);
+        if (rod == null) {
+            player.sendMessage(Component.text("Rod not found: " + rodId));
+            return;
+        }
+        if (!Economy.getInstance().isEnabled()) {
+            player.sendMessage(Component.text("Economy is not available."));
+            return;
+        }
+        if (price > 0 && !Economy.getInstance().has(player, price)) {
+            player.sendMessage(Component.text("You do not have enough money."));
+            return;
+        }
+        if (price > 0) {
+            Economy.getInstance().withdraw(player, price, false);
+        }
+        FishUtils.giveItem(rod.create(), player);
+        player.sendMessage(Component.text("Purchased " + rodId + " for " + price + "."));
+        closeGui(player);
     }
 
     private static void closeGui(HumanEntity human) {

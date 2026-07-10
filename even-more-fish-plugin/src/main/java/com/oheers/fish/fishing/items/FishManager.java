@@ -176,7 +176,7 @@ public class FishManager extends AbstractFishManager<Rarity> {
             return null;
         }
 
-        Rarity selected = selectRandomRarity(allowedRarities, boostRate, boostedRarities);
+        Rarity selected = selectRandomRarity(allowedRarities, boostRate, boostedRarities, customRod);
         return selected != null && isRarityAllowedInCompetition(selected) ? selected : null;
     }
 
@@ -271,10 +271,10 @@ public class FishManager extends AbstractFishManager<Rarity> {
                 (EvenMoreFish.getInstance().isRaritiesCompCheckExempt() && rarity.hasCompExemptFish());
     }
 
-    private Rarity selectRandomRarity(List<Rarity> rarities, double boostRate, Set<Rarity> boosted) {
+    private Rarity selectRandomRarity(List<Rarity> rarities, double boostRate, Set<Rarity> boosted, @Nullable CustomRod customRod) {
         return WeightedRandom.pick(
                 rarities,
-                Rarity::getWeight,
+                rarity -> customRod == null ? rarity.getWeight() : customRod.getRarityWeight(rarity),
                 boostRate,
                 boosted,
                 EvenMoreFish.getInstance().getRandom()

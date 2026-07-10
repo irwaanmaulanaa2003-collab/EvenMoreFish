@@ -1,10 +1,10 @@
 id: Rare
 disabled: false
-weight: 10
+weight: 9
 item:
   material: light_blue_concrete_powder
 format: <aqua>{name}
-worth-multiplier: 0.2
+worth-multiplier: 100
 broadcast:
   enabled: false
   only-rods: false
@@ -12,8 +12,8 @@ broadcast:
 catch-type: both
 sort-index: 3
 size:
-  minSize: 20
-  maxSize: 150
+  minSize: 35
+  maxSize: 60
 
 fish:
   Penguin Feather:

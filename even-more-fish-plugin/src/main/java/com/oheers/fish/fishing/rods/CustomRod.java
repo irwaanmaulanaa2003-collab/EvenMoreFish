@@ -22,7 +22,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 public class CustomRod extends ConfigBase implements ICustomRod {
@@ -32,6 +34,9 @@ public class CustomRod extends ConfigBase implements ICustomRod {
     private final List<Fish> allowedFish;
     private final EMFRecipe<?> recipe;
     private final ItemFactory factory;
+    private final Map<String, Double> rarityWeights;
+    private final int pullPower;
+    private final double resistanceReduction;
 
     public CustomRod(@NotNull File file) throws InvalidConfigurationException {
         super(file, EvenMoreFish.getInstance(), false);
@@ -39,6 +44,9 @@ public class CustomRod extends ConfigBase implements ICustomRod {
         this.allowedRarities = loadAllowedRarities();
         this.allowedFish = loadAllowedFish();
         this.factory = ItemFactory.itemFactory(getConfig());
+        this.rarityWeights = loadRarityWeights();
+        this.pullPower = getConfig().getInt("pull-power", 3);
+        this.resistanceReduction = getConfig().getDouble("resistance-reduction", 0.0D);
         this.factory.setFinalChanges(item ->
             NBT.modify(item, nbt -> {
                 ReadWriteNBT emfCompound = nbt.getOrCreateCompound(NbtKeys.EMF_COMPOUND);
@@ -111,6 +119,16 @@ public class CustomRod extends ConfigBase implements ICustomRod {
         );
     }
 
+    private Map<String, Double> loadRarityWeights() {
+        Section section = getConfig().getSection("rarity-weights");
+        if (section == null) {
+            return Map.of();
+        }
+        Map<String, Double> weights = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        section.getRoutesAsStrings(false).forEach(key -> weights.put(key, section.getDouble(key, 0.0D)));
+        return weights;
+    }
+
     // Config getters
 
     @Override
@@ -160,6 +178,18 @@ public class CustomRod extends ConfigBase implements ICustomRod {
 
     public @Nullable EMFRecipe<?> getRecipe() {
         return this.recipe;
+    }
+
+    public double getRarityWeight(@NotNull Rarity rarity) {
+        return rarityWeights.getOrDefault(rarity.getId(), rarity.getWeight());
+    }
+
+    public int getPullPower() {
+        return pullPower;
+    }
+
+    public double getResistanceReduction() {
+        return resistanceReduction;
     }
 
 }

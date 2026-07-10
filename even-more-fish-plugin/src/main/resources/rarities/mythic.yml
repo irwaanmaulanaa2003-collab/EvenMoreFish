@@ -1,0 +1,46 @@
+id: Mythic
+disabled: false
+weight: 0.05
+item:
+  material: purple_concrete_powder
+format: <#B15CFF>{name}
+worth-multiplier: 100
+broadcast:
+  enabled: true
+  only-rods: false
+  range: -1
+catch-type: both
+sort-index: 6
+size:
+  minSize: 140
+  maxSize: 170
+
+fish:
+  Abyssal Tuna:
+    item:
+      material: COD
+      glowing: true
+  Crystal Koi:
+    item:
+      material: TROPICAL_FISH
+      glowing: true
+  Moonlight Eel:
+    item:
+      material: PRISMARINE_CRYSTALS
+      glowing: true
+  Phantom Jellyfish:
+    item:
+      material: ECHO_SHARD
+      glowing: true
+  Ancient Turtle:
+    item:
+      material: TURTLE_SCUTE
+      glowing: true
+  Obsidian Shark:
+    item:
+      material: OBSIDIAN
+      glowing: true
+  Prismarine Whale:
+    item:
+      material: PRISMARINE_SHARD
+      glowing: true

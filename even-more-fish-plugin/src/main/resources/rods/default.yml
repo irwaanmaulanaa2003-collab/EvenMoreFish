@@ -1,5 +1,5 @@
 id: default
-disabled: false
+disabled: true
 allowed-rarities: ALL
 item:
   material: FISHING_ROD

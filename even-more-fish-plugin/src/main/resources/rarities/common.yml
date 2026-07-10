@@ -1,10 +1,10 @@
 id: Common
 disabled: false
-weight: 100
+weight: 82
 item:
   material: light_gray_concrete_powder
 format: <gray>{name}
-worth-multiplier: 0.1
+worth-multiplier: 100
 broadcast:
   enabled: false
   only-rods: false
@@ -12,7 +12,7 @@ broadcast:
 catch-type: both
 sort-index: 2
 size:
-  minSize: 1
+  minSize: 15
   maxSize: 30
 
 fish:
