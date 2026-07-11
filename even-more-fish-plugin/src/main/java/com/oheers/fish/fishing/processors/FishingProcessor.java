@@ -16,6 +16,8 @@ import com.oheers.fish.messages.EMFSingleMessage;
 import com.oheers.fish.permissions.UserPerms;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.Tag;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Item;
@@ -150,11 +152,13 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
                 return;
             }
             MinigameSession newSession = new MinigameSession(event.getHook(), fish, customRod);
+            // Put the player into WAITING_HOOK before any UI is sent, so fast right-clicks are accepted.
             sessions.put(uuid, newSession);
-            sendMinigameMessage(player, "bite", "<yellow>Fish is biting! <white>Right click within <aqua>{time}s</aqua> to hook it.", Map.of(
+            playMinigameSound(player, "bite", "BLOCK_NOTE_BLOCK_PLING", 1.25F);
+            sendMinigameMessage(player, "bite", "<gold>Strike detected.</gold> <white>Right-click within <aqua>{time}s</aqua> to set the hook.</white>", Map.of(
                 "{time}", String.valueOf(MainConfig.getInstance().getMinigameHookTimeSeconds())
             ));
-            sendMinigameTitle(player, "bite-title", "<yellow>IKAN MENGGIGIT!</yellow>", "bite-subtitle", "<white>Klik kanan dalam <aqua>{time}s</aqua></white>", Map.of(
+            sendMinigameTitle(player, "bite-title", "<gold>STRIKE!</gold>", "bite-subtitle", "<white>Right-click to set the hook</white>", Map.of(
                 "{time}", String.valueOf(MainConfig.getInstance().getMinigameHookTimeSeconds())
             ));
             int hookTimeoutTicks = Math.max(1, MainConfig.getInstance().getMinigameHookTimeSeconds()) * 20;
@@ -178,7 +182,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
     public void onHookInteract(@NotNull PlayerInteractEvent event) {
         if (!MainConfig.getInstance().isCustomMinigameEnabled()) {
             return;
@@ -210,7 +214,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return;
         }
         if (session.state == MinigameState.READY_COUNTDOWN) {
-            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for <green>GO!</green> before pulling.", Map.of());
+            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>", Map.of());
             return;
         }
         if (session.state != MinigameState.PULLING) {
@@ -224,6 +228,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         session.lastPullMillis = System.currentTimeMillis();
         int pullPower = Math.max(1, session.rod == null ? 3 : session.rod.getPullPower());
         session.progress = Math.min(MainConfig.getInstance().getMinigameProgressNeeded(), session.progress + pullPower);
+        playMinigameSound(player, "pull", "ENTITY_EXPERIENCE_ORB_PICKUP", 1.1F);
         applyResistance(player, session);
         pullBobberTowardPlayer(player, session);
         sendProgressMessage(player, session);
@@ -265,7 +270,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
         session.state = MinigameState.READY_COUNTDOWN;
         session.lastPullMillis = System.currentTimeMillis();
-        sendMinigameTitle(player, "ready-title", "<green>READY</green>", "ready-subtitle", "<white>Get ready to spam <yellow>Shift</yellow>!</white>");
+        playMinigameSound(player, "hook", "ENTITY_FISHING_BOBBER_RETRIEVE", 1.0F);
+        sendMinigameTitle(player, "ready-title", "<green>HOOK SET</green>", "ready-subtitle", "<white>Prepare to pull. Wait for the signal.</white>");
         runReadyCountdown(player.getUniqueId(), session, Math.max(1, MainConfig.getInstance().getMinigameReadyDelaySeconds()));
     }
 
@@ -277,10 +283,11 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
 
         if (secondsLeft > 0) {
-            sendMinigameMessage(player, "ready-countdown", "<green>Ready!</green> <white>Start pulling in <aqua>{time}</aqua>...</white>", Map.of(
+            playMinigameSound(player, "countdown", "BLOCK_NOTE_BLOCK_HAT", 1.0F + (0.1F * secondsLeft));
+            sendMinigameMessage(player, "ready-countdown", "<green>Ready.</green> <white>Pulling starts in <aqua>{time}</aqua>...</white>", Map.of(
                 "{time}", String.valueOf(secondsLeft)
             ));
-            sendMinigameTitle(player, "ready-countdown-title", "<aqua>{time}</aqua>", "ready-countdown-subtitle", "<white>Prepare to spam <yellow>Shift</yellow></white>", Map.of(
+            sendMinigameTitle(player, "ready-countdown-title", "<aqua>{time}</aqua>", "ready-countdown-subtitle", "<white>Hold steady. Do not pull yet.</white>", Map.of(
                 "{time}", String.valueOf(secondsLeft)
             ));
             EvenMoreFish.getScheduler().runTaskLater(() -> runReadyCountdown(uuid, expected, secondsLeft - 1), 20L);
@@ -289,14 +296,16 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
         session.state = MinigameState.PULLING;
         session.lastPullMillis = System.currentTimeMillis();
-        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Shift</yellow> to pull the fish!</white>", Map.of());
-        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Shift</yellow> now!</white>");
+        playMinigameSound(player, "go", "ENTITY_PLAYER_LEVELUP", 1.0F);
+        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Shift</yellow> to reel the fish in.</white>", Map.of());
+        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Shift</yellow> now</white>");
         sendProgressMessage(player, session);
         scheduleEscapeCheck(uuid, session);
         scheduleProgressDisplay(uuid, session);
     }
 
     private void scheduleProgressDisplay(@NotNull UUID uuid, @NotNull MinigameSession expected) {
+        int interval = Math.max(1, MainConfig.getInstance().getMinigameProgressDecayIntervalTicks());
         EvenMoreFish.getScheduler().runTaskLater(() -> {
             MinigameSession session = sessions.get(uuid);
             if (session != expected || session.state != MinigameState.PULLING) {
@@ -307,9 +316,10 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
                 sessions.remove(uuid);
                 return;
             }
+            applyIdleProgressDecay(player, session);
             sendProgressMessage(player, session);
             scheduleProgressDisplay(uuid, expected);
-        }, 20L);
+        }, interval);
     }
 
     private boolean canUseHeldCustomRod(@NotNull Player player) {
@@ -332,7 +342,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             session.hook.remove();
         }
         if (player != null) {
-            sendMinigameMessage(player, "escaped", "<red>The fish escaped.</red>", Map.of());
+            playMinigameSound(player, "escaped", "ENTITY_ITEM_BREAK", 0.8F);
+            sendMinigameMessage(player, "escaped", "<red>The fish broke free.</red>", Map.of());
         }
     }
 
@@ -367,10 +378,24 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
         int loss = MainConfig.getInstance().getMinigameResistanceLoss(rarityId);
         session.progress = Math.max(0, session.progress - loss);
+        playMinigameSound(player, "resistance", "ENTITY_FISHING_BOBBER_SPLASH", 0.75F);
         pushBobberAway(player, session);
-        sendMinigameMessage(player, "resistance", "<red>The fish fought back!</red> <gray>-{loss}% progress.</gray>", Map.of(
+        sendMinigameMessage(player, "resistance", "<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>", Map.of(
             "{loss}", String.valueOf(loss)
         ));
+    }
+
+    private void applyIdleProgressDecay(@NotNull Player player, @NotNull MinigameSession session) {
+        int delayMillis = Math.max(0, MainConfig.getInstance().getMinigameProgressDecayDelayMillis());
+        if (System.currentTimeMillis() - session.lastPullMillis < delayMillis) {
+            return;
+        }
+        int decay = Math.max(0, MainConfig.getInstance().getMinigameProgressDecayAmount());
+        if (decay <= 0 || session.progress <= 0) {
+            return;
+        }
+        session.progress = Math.max(0, session.progress - decay);
+        pushBobberAway(player, session);
     }
 
     private void pullBobberTowardPlayer(@NotNull Player player, @NotNull MinigameSession session) {
@@ -403,7 +428,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
-        sendMinigameMessage(player, "caught", "<green>You successfully pulled the fish in!</green>", Map.of());
+        playMinigameSound(player, "caught", "ENTITY_PLAYER_LEVELUP", 1.2F);
+        sendMinigameMessage(player, "caught", "<green>Catch secured.</green> <white>The fish has been reeled in.</white>", Map.of());
     }
 
     private void failSession(@NotNull Player player, @NotNull MinigameSession session) {
@@ -411,14 +437,15 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
-        sendMinigameMessage(player, "escaped", "<red>The fish escaped.</red>", Map.of());
+        playMinigameSound(player, "escaped", "ENTITY_ITEM_BREAK", 0.8F);
+        sendMinigameMessage(player, "escaped", "<red>The fish broke free.</red>", Map.of());
     }
 
     private void sendProgressMessage(@NotNull Player player, @NotNull MinigameSession session) {
         int needed = Math.max(1, MainConfig.getInstance().getMinigameProgressNeeded());
         int progress = Math.max(0, Math.min(needed, session.progress));
         int percent = (int) Math.round((progress * 100.0D) / needed);
-        sendMinigameMessage(player, "progress", "<aqua>Tarikan:</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>", Map.of(
+        sendMinigameMessage(player, "progress", "<aqua>Pull Progress</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>", Map.of(
             "{progress}", String.valueOf(percent),
             "{bar}", getProgressBar(percent),
             "{fish}", session.fish.getDisplayName().getPlainTextMessage(player)
@@ -436,6 +463,24 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             builder.append('█');
         }
         return builder.toString();
+    }
+
+    private void playMinigameSound(@NotNull Player player, @NotNull String key, @NotNull String fallback, float pitch) {
+        if (!MainConfig.getInstance().isMinigameSoundEnabled()) {
+            return;
+        }
+        String soundName = MainConfig.getInstance().getMinigameSound(key, fallback);
+        try {
+            player.playSound(
+                player.getLocation(),
+                Sound.valueOf(soundName),
+                SoundCategory.PLAYERS,
+                MainConfig.getInstance().getMinigameSoundVolume(),
+                pitch
+            );
+        } catch (IllegalArgumentException ignored) {
+            plugin.debug("Invalid custom fishing minigame sound: %s".formatted(soundName));
+        }
     }
 
     private void sendMinigameTitle(@NotNull Player player, @NotNull String titleKey, @NotNull String titleFallback, @NotNull String subtitleKey, @NotNull String subtitleFallback) {

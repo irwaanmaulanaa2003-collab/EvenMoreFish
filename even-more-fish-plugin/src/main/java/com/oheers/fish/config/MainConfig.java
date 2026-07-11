@@ -189,8 +189,32 @@ public class MainConfig extends ConfigBase {
         return getConfig().getInt("custom-fishing-minigame.progress-needed", 100);
     }
 
+    public int getMinigameProgressDecayDelayMillis() {
+        return getConfig().getInt("custom-fishing-minigame.progress-decay.delay-ms", 1200);
+    }
+
+    public int getMinigameProgressDecayAmount() {
+        return getConfig().getInt("custom-fishing-minigame.progress-decay.amount", 2);
+    }
+
+    public int getMinigameProgressDecayIntervalTicks() {
+        return getConfig().getInt("custom-fishing-minigame.progress-decay.interval-ticks", 10);
+    }
+
     public double getMinigameBobberPullStrength() {
         return getConfig().getDouble("custom-fishing-minigame.bobber-pull-strength", 0.18D);
+    }
+
+    public boolean isMinigameSoundEnabled() {
+        return getConfig().getBoolean("custom-fishing-minigame.sounds.enabled", true);
+    }
+
+    public String getMinigameSound(@NotNull String key, @NotNull String fallback) {
+        return getConfig().getString("custom-fishing-minigame.sounds." + key, fallback);
+    }
+
+    public float getMinigameSoundVolume() {
+        return (float) getConfig().getDouble("custom-fishing-minigame.sounds.volume", 0.75D);
     }
 
     public double getMinigameResistanceChance(@NotNull String rarityId) {

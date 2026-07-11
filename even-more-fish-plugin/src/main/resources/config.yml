@@ -54,25 +54,41 @@ custom-fishing-minigame:
   # Once pulling starts, the fish escapes if the player does not Shift again within this time.
   escape-time-seconds: 5
   progress-needed: 100
+  # If the player stops pulling, progress starts decreasing after this delay.
+  progress-decay:
+    delay-ms: 1200
+    interval-ticks: 10
+    amount: 2
   bobber-pull-strength: 0.18
+  sounds:
+    enabled: true
+    volume: 0.75
+    bite: BLOCK_NOTE_BLOCK_PLING
+    hook: ENTITY_FISHING_BOBBER_RETRIEVE
+    countdown: BLOCK_NOTE_BLOCK_HAT
+    go: ENTITY_PLAYER_LEVELUP
+    pull: ENTITY_EXPERIENCE_ORB_PICKUP
+    resistance: ENTITY_FISHING_BOBBER_SPLASH
+    escaped: ENTITY_ITEM_BREAK
+    caught: ENTITY_PLAYER_LEVELUP
   messages:
-    bite: '<yellow>Fish is biting!</yellow> <white>Right click within <aqua>{time}s</aqua> to hook it.</white>'
-    bite-title: '<yellow>IKAN MENGGIGIT!</yellow>'
-    bite-subtitle: '<white>Klik kanan dalam <aqua>{time}s</aqua></white>'
-    ready-title: '<green>READY</green>'
-    ready-subtitle: '<white>Get ready to spam <yellow>Shift</yellow>!</white>'
-    ready-countdown: '<green>Ready!</green> <white>Start pulling in <aqua>{time}</aqua>...</white>'
+    bite: '<gold>Strike detected.</gold> <white>Right-click within <aqua>{time}s</aqua> to set the hook.</white>'
+    bite-title: '<gold>STRIKE!</gold>'
+    bite-subtitle: '<white>Right-click to set the hook</white>'
+    ready-title: '<green>HOOK SET</green>'
+    ready-subtitle: '<white>Prepare to pull. Wait for the signal.</white>'
+    ready-countdown: '<green>Ready.</green> <white>Pulling starts in <aqua>{time}</aqua>...</white>'
     ready-countdown-title: '<aqua>{time}</aqua>'
-    ready-countdown-subtitle: '<white>Prepare to spam <yellow>Shift</yellow></white>'
-    go: '<green>GO!</green> <white>Spam <yellow>Shift</yellow> to pull the fish!</white>'
+    ready-countdown-subtitle: '<white>Hold steady. Do not pull yet.</white>'
+    go: '<green>GO!</green> <white>Spam <yellow>Shift</yellow> to reel the fish in.</white>'
     go-title: '<green>GO!</green>'
-    go-subtitle: '<white>Spam <yellow>Shift</yellow> now!</white>'
-    wait-ready: '<yellow>Wait for <green>GO!</green> before pulling.</yellow>'
-    progress: '<aqua>Tarikan:</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>'
-    resistance: '<red>The fish fought back!</red> <gray>-{loss}% progress.</gray>'
-    escaped: '<red>The fish escaped.</red>'
-    caught: '<green>You successfully pulled the fish in!</green>'
-    vanilla-rod-blocked: '<red>You need a custom fishing rod to fish here.</red>'
+    go-subtitle: '<white>Spam <yellow>Shift</yellow> now</white>'
+    wait-ready: '<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>'
+    progress: '<aqua>Pull Progress</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>'
+    resistance: '<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>'
+    escaped: '<red>The fish broke free.</red>'
+    caught: '<green>Catch secured.</green> <white>The fish has been reeled in.</white>'
+    vanilla-rod-blocked: '<red>A custom fishing rod is required here.</red>'
   resistance:
     Junk:
       chance: 2.0
