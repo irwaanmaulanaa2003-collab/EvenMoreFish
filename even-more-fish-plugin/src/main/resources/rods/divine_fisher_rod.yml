@@ -9,30 +9,30 @@ allowed-rarities:
   - Mythic
   - Divine
 rarity-weights:
-  Junk: 1
-  Common: 55
-  Rare: 27
-  Epic: 13
-  Legendary: 3
-  Mythic: 0.8
-  Divine: 0.2
-pull-power: 7
-resistance-reduction: 12.0
+  Junk: 0.5
+  Common: 40
+  Rare: 32
+  Epic: 20
+  Legendary: 5.5
+  Mythic: 1.6
+  Divine: 0.4
+pull-power: 12
+resistance-reduction: 18.0
 item:
   material: FISHING_ROD
   displayname: <gold>Divine Fisher Rod
-  glowing: true
+  glowing: false
+  unbreakable: true
   lore:
     - ''
-    - '<gray>Tier rod for custom fishing.'
-    - '<gray>Price: <green>$7,500,000'
-    - '<gray>Pull Power: <yellow>+7'
-    - '<gray>Resistance Reduction: <yellow>12.0%'
+    - '<gray>The finest fishing rod known to the ocean.</gray>'
+    - '<gray>Created for fishers chasing legendary catches.</gray>'
     - ''
-    - '<gray>Chance: Divine exists, but is still super rare.'
+    - '<white>Tier: <yellow>X</yellow></white>'
+    - '<white>Luck: <green>+90%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Best chance for Legendary, Mythic, and Divine fish.</gray></white>'
+    - '<white>Pull Power: <yellow>+12</yellow></white>'
     - ''
-    - '<yellow>Use this rod to catch custom fish.'
-  enchantments:
-    - lure,3
-    - luck_of_the_sea,3
-    - unbreaking,5
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Divine Fishing Rod</dark_gray>'

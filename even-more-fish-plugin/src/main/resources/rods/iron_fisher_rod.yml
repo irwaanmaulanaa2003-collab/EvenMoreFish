@@ -1,0 +1,32 @@
+id: iron_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+rarity-weights:
+  Junk: 8
+  Common: 79
+  Rare: 10
+  Epic: 3
+pull-power: 5
+resistance-reduction: 4.0
+item:
+  material: FISHING_ROD
+  displayname: <gray>Iron Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A balanced rod for serious fishers.</gray>'
+    - '<gray>Built to handle heavier catches.</gray>'
+    - ''
+    - '<white>Tier: <yellow>III</yellow></white>'
+    - '<white>Luck: <green>+20%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Built for consistent Rare catches and early Epic rewards.</gray></white>'
+    - '<white>Pull Power: <yellow>+5</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Fishing Rod Upgrade</dark_gray>'

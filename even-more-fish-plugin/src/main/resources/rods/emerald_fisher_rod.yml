@@ -1,0 +1,36 @@
+id: emerald_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+rarity-weights:
+  Junk: 4
+  Common: 62
+  Rare: 24
+  Epic: 8
+  Legendary: 1.8
+  Mythic: 0.2
+pull-power: 8
+resistance-reduction: 10.0
+item:
+  material: FISHING_ROD
+  displayname: <green>Emerald Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A premium rod favored by wealthy fishers.</gray>'
+    - '<gray>Known for attracting rare aquatic treasures.</gray>'
+    - ''
+    - '<white>Tier: <yellow>VI</yellow></white>'
+    - '<white>Luck: <green>+50%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Unlocks a tiny Mythic chance.</gray></white>'
+    - '<white>Pull Power: <yellow>+8</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Elite Fishing Rod</dark_gray>'

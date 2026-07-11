@@ -1,0 +1,32 @@
+id: stone_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+rarity-weights:
+  Junk: 10
+  Common: 84
+  Rare: 5
+  Epic: 1
+pull-power: 4
+resistance-reduction: 2.0
+item:
+  material: FISHING_ROD
+  displayname: <gray>Stone Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A stronger rod crafted for calm waters.</gray>'
+    - '<gray>Better control for early fishing trips.</gray>'
+    - ''
+    - '<white>Tier: <yellow>II</yellow></white>'
+    - '<white>Luck: <green>+10%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Improves Rare chance while staying early-game friendly.</gray></white>'
+    - '<white>Pull Power: <yellow>+4</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Fishing Rod Upgrade</dark_gray>'

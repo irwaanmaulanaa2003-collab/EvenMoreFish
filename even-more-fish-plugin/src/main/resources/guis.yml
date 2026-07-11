@@ -437,86 +437,181 @@ rod-shop-menu:
   title: <#006F86>EvenMoreFish - Rod Shop
   layout:
     - "126515621"
-    - "23     32"
-    - "4 a b c 4"
-    - "4  d e  4"
-    - "23     32"
-    - "1265x5621"
+    - "2abcdefg2"
+    - "3 h i j 3"
+    - "4       4"
+    - "23  x  32"
+    - "126515621"
   filler: black_stained_glass_pane
 
-  rookie-rod:
+  wooden-rod:
     item:
       material: fishing_rod
-      displayname: <white>Rookie Fisher Rod
-      glowing: true
+      displayname: <white>Wooden Fisher Rod
+      glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$75,000'
-        - '<gray>Chance: Common focused, tiny Epic chance.'
-        - '<gray>Pull Power: <yellow>+3'
+        - '<gray>Price: <green>FREE</green></gray>'
+        - '<gray>Tier: <yellow>I</yellow> <dark_gray>|</dark_gray> Luck: <green>+0%</green></gray>'
+        - '<gray>Durability: <red>Breakable</red></gray>'
+        - '<gray>Common focused with a tiny Rare chance.</gray>'
+        - '<gray>Pull Power: <yellow>+3</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.'
+        - '<yellow>Click to claim.</yellow>'
     character: a
-    click-action: buy-rod-rookie_fisher_rod
+    click-action: buy-rod-wooden_fisher_rod
 
-  advanced-rod:
+  stone-rod:
     item:
       material: fishing_rod
-      displayname: <green>Advanced Fisher Rod
-      glowing: true
+      displayname: <gray>Stone Fisher Rod
+      glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$250,000'
-        - '<gray>Chance: Better Rare and Epic chance.'
-        - '<gray>Pull Power: <yellow>+4'
+        - '<gray>Price: <green>$20,000</green></gray>'
+        - '<gray>Tier: <yellow>II</yellow> <dark_gray>|</dark_gray> Luck: <green>+10%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Better Rare chance with a small Epic chance.</gray>'
+        - '<gray>Pull Power: <yellow>+4</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.'
+        - '<yellow>Click to buy.</yellow>'
     character: b
-    click-action: buy-rod-advanced_fisher_rod
+    click-action: buy-rod-stone_fisher_rod
 
-  elite-rod:
+  iron-rod:
     item:
       material: fishing_rod
-      displayname: <aqua>Elite Fisher Rod
-      glowing: true
+      displayname: <gray>Iron Fisher Rod
+      glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$750,000'
-        - '<gray>Chance: Unlocks tiny Legendary chance.'
-        - '<gray>Pull Power: <yellow>+5'
+        - '<gray>Price: <green>$75,000</green></gray>'
+        - '<gray>Tier: <yellow>III</yellow> <dark_gray>|</dark_gray> Luck: <green>+20%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Improved Rare and Epic chance.</gray>'
+        - '<gray>Pull Power: <yellow>+5</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.'
+        - '<yellow>Click to buy.</yellow>'
     character: c
-    click-action: buy-rod-elite_fisher_rod
+    click-action: buy-rod-iron_fisher_rod
+
+  golden-rod:
+    item:
+      material: fishing_rod
+      displayname: <gold>Golden Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$150,000</green></gray>'
+        - '<gray>Tier: <yellow>IV</yellow> <dark_gray>|</dark_gray> Luck: <green>+30%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Small Legendary chance unlocked.</gray>'
+        - '<gray>Pull Power: <yellow>+6</yellow></gray>'
+        - ''
+        - '<yellow>Click to buy.</yellow>'
+    character: d
+    click-action: buy-rod-golden_fisher_rod
+
+  diamond-rod:
+    item:
+      material: fishing_rod
+      displayname: <aqua>Diamond Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$300,000</green></gray>'
+        - '<gray>Tier: <yellow>V</yellow> <dark_gray>|</dark_gray> Luck: <green>+40%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Higher Epic and Legendary chance.</gray>'
+        - '<gray>Pull Power: <yellow>+7</yellow></gray>'
+        - ''
+        - '<yellow>Click to buy.</yellow>'
+    character: e
+    click-action: buy-rod-diamond_fisher_rod
+
+  emerald-rod:
+    item:
+      material: fishing_rod
+      displayname: <green>Emerald Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$650,000</green></gray>'
+        - '<gray>Tier: <yellow>VI</yellow> <dark_gray>|</dark_gray> Luck: <green>+50%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Tiny Mythic chance unlocked.</gray>'
+        - '<gray>Pull Power: <yellow>+8</yellow></gray>'
+        - ''
+        - '<yellow>Click to buy.</yellow>'
+    character: f
+    click-action: buy-rod-emerald_fisher_rod
+
+  netherite-rod:
+    item:
+      material: fishing_rod
+      displayname: <dark_gray>Netherite Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$1,200,000</green></gray>'
+        - '<gray>Tier: <yellow>VII</yellow> <dark_gray>|</dark_gray> Luck: <green>+60%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Better high-tier fish chance.</gray>'
+        - '<gray>Pull Power: <yellow>+9</yellow></gray>'
+        - ''
+        - '<yellow>Click to buy.</yellow>'
+    character: g
+    click-action: buy-rod-netherite_fisher_rod
 
   mythic-rod:
     item:
       material: fishing_rod
       displayname: <light_purple>Mythic Fisher Rod
-      glowing: true
+      glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$2,500,000'
-        - '<gray>Chance: Unlocks tiny Mythic chance.'
-        - '<gray>Pull Power: <yellow>+6'
+        - '<gray>Price: <green>$2,000,000</green></gray>'
+        - '<gray>Tier: <yellow>VIII</yellow> <dark_gray>|</dark_gray> Luck: <green>+70%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Very small Divine chance unlocked.</gray>'
+        - '<gray>Pull Power: <yellow>+10</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.'
-    character: d
+        - '<yellow>Click to buy.</yellow>'
+    character: h
     click-action: buy-rod-mythic_fisher_rod
+
+  celestial-rod:
+    item:
+      material: fishing_rod
+      displayname: <#87CEFA>Celestial Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$3,250,000</green></gray>'
+        - '<gray>Tier: <yellow>IX</yellow> <dark_gray>|</dark_gray> Luck: <green>+80%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Improved Legendary, Mythic, and Divine chance.</gray>'
+        - '<gray>Pull Power: <yellow>+11</yellow></gray>'
+        - ''
+        - '<yellow>Click to buy.</yellow>'
+    character: i
+    click-action: buy-rod-celestial_fisher_rod
 
   divine-rod:
     item:
       material: fishing_rod
       displayname: <gold>Divine Fisher Rod
-      glowing: true
+      glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$7,500,000'
-        - '<gray>Chance: Unlocks super rare Divine chance.'
-        - '<gray>Pull Power: <yellow>+7'
+        - '<gray>Price: <green>$5,000,000</green></gray>'
+        - '<gray>Tier: <yellow>X</yellow> <dark_gray>|</dark_gray> Luck: <green>+90%</green></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Best high-tier chance, but Divine fish remains rare.</gray>'
+        - '<gray>Pull Power: <yellow>+12</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.'
-    character: e
+        - '<yellow>Click to buy.</yellow>'
+    character: j
     click-action: buy-rod-divine_fisher_rod
 
   exit:

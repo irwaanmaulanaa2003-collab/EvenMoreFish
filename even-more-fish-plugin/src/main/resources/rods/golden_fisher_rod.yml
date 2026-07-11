@@ -1,0 +1,34 @@
+id: golden_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+rarity-weights:
+  Junk: 6
+  Common: 74
+  Rare: 15
+  Epic: 4.5
+  Legendary: 0.5
+pull-power: 6
+resistance-reduction: 6.0
+item:
+  material: FISHING_ROD
+  displayname: <gold>Golden Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A polished rod with improved sensitivity.</gray>'
+    - '<gray>Its shine attracts better catches.</gray>'
+    - ''
+    - '<white>Tier: <yellow>IV</yellow></white>'
+    - '<white>Luck: <green>+30%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Unlocks a very small Legendary chance.</gray></white>'
+    - '<white>Pull Power: <yellow>+6</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Advanced Fishing Rod</dark_gray>'

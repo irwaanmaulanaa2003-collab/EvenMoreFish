@@ -1,0 +1,36 @@
+id: netherite_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+rarity-weights:
+  Junk: 3
+  Common: 56
+  Rare: 27
+  Epic: 11
+  Legendary: 2.5
+  Mythic: 0.5
+pull-power: 9
+resistance-reduction: 12.0
+item:
+  material: FISHING_ROD
+  displayname: <dark_gray>Netherite Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A reinforced rod made for extreme waters.</gray>'
+    - '<gray>Powerful enough to fight stronger fish.</gray>'
+    - ''
+    - '<white>Tier: <yellow>VII</yellow></white>'
+    - '<white>Luck: <green>+60%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Better Epic, Legendary, and Mythic chance.</gray></white>'
+    - '<white>Pull Power: <yellow>+9</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Elite Fishing Rod</dark_gray>'

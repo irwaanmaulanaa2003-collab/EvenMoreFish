@@ -117,11 +117,16 @@ custom-fishing-minigame:
 rod-shop:
   enabled: true
   prices:
-    rookie_fisher_rod: 75000
-    advanced_fisher_rod: 250000
-    elite_fisher_rod: 750000
-    mythic_fisher_rod: 2500000
-    divine_fisher_rod: 7500000
+    wooden_fisher_rod: 0
+    stone_fisher_rod: 20000
+    iron_fisher_rod: 75000
+    golden_fisher_rod: 150000
+    diamond_fisher_rod: 300000
+    emerald_fisher_rod: 650000
+    netherite_fisher_rod: 1200000
+    mythic_fisher_rod: 2000000
+    celestial_fisher_rod: 3250000
+    divine_fisher_rod: 5000000
 
 # Backs up active competitions to a file.
 # Useful for crashes and such.

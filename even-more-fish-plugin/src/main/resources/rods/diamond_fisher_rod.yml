@@ -1,0 +1,34 @@
+id: diamond_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+rarity-weights:
+  Junk: 5
+  Common: 68
+  Rare: 20
+  Epic: 6
+  Legendary: 1
+pull-power: 7
+resistance-reduction: 8.0
+item:
+  material: FISHING_ROD
+  displayname: <aqua>Diamond Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A durable rod for deep-water fishing.</gray>'
+    - '<gray>Designed for valuable ocean catches.</gray>'
+    - ''
+    - '<white>Tier: <yellow>V</yellow></white>'
+    - '<white>Luck: <green>+40%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Higher Epic and Legendary chance.</gray></white>'
+    - '<white>Pull Power: <yellow>+7</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Advanced Fishing Rod</dark_gray>'

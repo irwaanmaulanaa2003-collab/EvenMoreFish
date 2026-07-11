@@ -1,0 +1,30 @@
+id: wooden_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+rarity-weights:
+  Junk: 12
+  Common: 87
+  Rare: 1
+pull-power: 3
+resistance-reduction: 0.0
+item:
+  material: FISHING_ROD
+  displayname: <white>Wooden Fisher Rod
+  glowing: false
+  unbreakable: false
+  lore:
+    - ''
+    - '<gray>A simple starter rod for new fishers.</gray>'
+    - '<gray>Reliable enough to begin your fishing journey.</gray>'
+    - ''
+    - '<white>Tier: <yellow>I</yellow></white>'
+    - '<white>Luck: <green>+0%</green></white>'
+    - '<white>Durability: <red>Breakable</red></white>'
+    - '<white>Access: <gray>Starter rod for basic fishing rewards.</gray></white>'
+    - '<white>Pull Power: <yellow>+3</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Starter Fishing Rod</dark_gray>'

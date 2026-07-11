@@ -1,0 +1,38 @@
+id: celestial_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+  - Divine
+rarity-weights:
+  Junk: 1
+  Common: 45
+  Rare: 31
+  Epic: 17
+  Legendary: 4.5
+  Mythic: 1.3
+  Divine: 0.2
+pull-power: 11
+resistance-reduction: 16.0
+item:
+  material: FISHING_ROD
+  displayname: <#87CEFA>Celestial Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A rare rod blessed by the stars above.</gray>'
+    - '<gray>Its line reaches beyond ordinary waters.</gray>'
+    - ''
+    - '<white>Tier: <yellow>IX</yellow></white>'
+    - '<white>Luck: <green>+80%</green></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - '<white>Access: <gray>Improved high-tier fish chance.</gray></white>'
+    - '<white>Pull Power: <yellow>+11</yellow></white>'
+    - ''
+    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<dark_gray>Celestial Fishing Rod</dark_gray>'
