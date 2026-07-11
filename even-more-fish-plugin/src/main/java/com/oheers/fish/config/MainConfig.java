@@ -226,6 +226,18 @@ public class MainConfig extends ConfigBase {
         return getConfig().getInt("custom-fishing-minigame.resistance." + rarityId + ".progress-loss", 0);
     }
 
+    public double getMinigameFishEscapeGain(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.fish-escape." + rarityId + ".gain", 1.0D);
+    }
+
+    public double getMinigameFishEscapeResistanceGain(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.fish-escape." + rarityId + ".resistance-gain", 0.0D);
+    }
+
+    public double getMinigameFishEscapePullReduction() {
+        return getConfig().getDouble("custom-fishing-minigame.fish-escape.pull-reduction", 1.0D);
+    }
+
     public String getMinigameMessage(@NotNull String key, @NotNull String fallback) {
         return getConfig().getString("custom-fishing-minigame.messages." + key, fallback);
     }
