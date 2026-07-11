@@ -122,7 +122,14 @@ custom-fishing-minigame:
       chance: 42.0
       progress-loss: 16
       tension-gain: 22.0
-  bobber-pull-strength: 0.18
+  # Bobber movement is synced to the CATCH bar instead of snapping instantly.
+  # Higher sync/max-speed values move the bobber faster.
+  bobber:
+    min-distance: 1.4
+    sync-strength: 0.10
+    max-speed: 0.12
+    push-strength: 0.07
+  bobber-pull-strength: 0.12
   sounds:
     enabled: true
     volume: 0.75

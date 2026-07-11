@@ -202,7 +202,23 @@ public class MainConfig extends ConfigBase {
     }
 
     public double getMinigameBobberPullStrength() {
-        return getConfig().getDouble("custom-fishing-minigame.bobber-pull-strength", 0.18D);
+        return getConfig().getDouble("custom-fishing-minigame.bobber-pull-strength", getMinigameBobberMaxSpeed());
+    }
+
+    public double getMinigameBobberMinDistance() {
+        return getConfig().getDouble("custom-fishing-minigame.bobber.min-distance", 1.4D);
+    }
+
+    public double getMinigameBobberSyncStrength() {
+        return getConfig().getDouble("custom-fishing-minigame.bobber.sync-strength", 0.10D);
+    }
+
+    public double getMinigameBobberMaxSpeed() {
+        return getConfig().getDouble("custom-fishing-minigame.bobber.max-speed", 0.12D);
+    }
+
+    public double getMinigameBobberPushStrength() {
+        return getConfig().getDouble("custom-fishing-minigame.bobber.push-strength", 0.07D);
     }
 
     public boolean isMinigameSoundEnabled() {

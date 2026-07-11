@@ -148,6 +148,13 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
         MinigameSession session = sessions.get(uuid);
         if (event.getState() == PlayerFishEvent.State.BITE) {
+            // If the vanilla hook fires another bite while our custom minigame is already running,
+            // ignore it. This prevents the fight from being reset and asking the player to hook again.
+            if (session != null) {
+                event.setCancelled(true);
+                freezeVanillaBites(session.hook);
+                return;
+            }
             if (customRod == null || !canStartCustomFishing(player, rod, false)) {
                 return;
             }
@@ -158,6 +165,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             MinigameSession newSession = new MinigameSession(event.getHook(), fish, customRod);
             // Put the player into WAITING_HOOK before any UI is sent, so fast right-clicks are accepted.
             sessions.put(uuid, newSession);
+            freezeVanillaBites(newSession.hook);
             playMinigameSound(player, "bite", "BLOCK_NOTE_BLOCK_PLING", 1.25F);
             sendMinigameMessage(player, "bite", "<gold>Strike detected.</gold> <white>Right-click within <aqua>{time}s</aqua> to set the hook.</white>", Map.of(
                 "{time}", String.valueOf(MainConfig.getInstance().getMinigameHookTimeSeconds())
@@ -331,6 +339,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         session.state = MinigameState.PULLING;
         session.progress = 0;
         session.fishProgress = 0.0D;
+        session.captureStartDistance(player);
+        freezeVanillaBites(session.hook);
         session.lastPullMillis = System.currentTimeMillis();
         scheduleNextStruggle(session);
         playMinigameSound(player, "go", "ENTITY_PLAYER_LEVELUP", 1.0F);
@@ -360,6 +370,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             if (applyFishEscapePressure(player, session)) {
                 return;
             }
+            syncBobberToProgress(player, session);
             sendProgressMessage(player, session);
             scheduleProgressDisplay(uuid, expected);
         }, interval);
@@ -519,19 +530,67 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
     }
 
     private void pullBobberTowardPlayer(@NotNull Player player, @NotNull MinigameSession session) {
-        Vector direction = player.getLocation().toVector().subtract(session.hook.getLocation().toVector());
+        syncBobberToProgress(player, session);
+    }
+
+    private void syncBobberToProgress(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.hook == null || !session.hook.isValid()) {
+            return;
+        }
+        if (session.startDistance <= 0.0D) {
+            session.captureStartDistance(player);
+        }
+
+        int needed = Math.max(1, MainConfig.getInstance().getMinigameProgressNeeded());
+        double catchRatio = Math.max(0.0D, Math.min(1.0D, session.progress / (double) needed));
+        double minDistance = Math.max(0.8D, MainConfig.getInstance().getMinigameBobberMinDistance());
+        double startDistance = Math.max(minDistance + 0.25D, session.startDistance);
+        double targetDistance = minDistance + ((startDistance - minDistance) * (1.0D - catchRatio));
+
+        Vector hookVector = session.hook.getLocation().toVector();
+        Vector playerVector = player.getLocation().toVector();
+        double currentDistance = hookVector.distance(playerVector);
+        double difference = currentDistance - targetDistance;
+
+        // Do not snap the bobber to the player. Only apply a small correction toward the target
+        // distance so the visual movement follows the CATCH bar smoothly.
+        if (difference <= 0.05D) {
+            return;
+        }
+
+        Vector direction = playerVector.subtract(hookVector);
         if (direction.lengthSquared() <= 0.01D) {
             return;
         }
-        session.hook.setVelocity(direction.normalize().multiply(MainConfig.getInstance().getMinigameBobberPullStrength()));
+        double speed = Math.min(
+            MainConfig.getInstance().getMinigameBobberMaxSpeed(),
+            Math.max(0.015D, difference * MainConfig.getInstance().getMinigameBobberSyncStrength())
+        );
+        session.hook.setVelocity(direction.normalize().multiply(speed));
     }
 
     private void pushBobberAway(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.hook == null || !session.hook.isValid()) {
+            return;
+        }
         Vector direction = session.hook.getLocation().toVector().subtract(player.getLocation().toVector());
         if (direction.lengthSquared() <= 0.01D) {
             return;
         }
-        session.hook.setVelocity(direction.normalize().multiply(0.12D));
+        session.hook.setVelocity(direction.normalize().multiply(MainConfig.getInstance().getMinigameBobberPushStrength()));
+    }
+
+    private void freezeVanillaBites(@Nullable FishHook hook) {
+        if (hook == null || !hook.isValid()) {
+            return;
+        }
+        try {
+            // Keep the same bobber, but stop vanilla from creating another BITE event during the minigame.
+            hook.setMinWaitTime(20 * 60 * 60);
+            hook.setMaxWaitTime((20 * 60 * 60) + 20);
+        } catch (IllegalArgumentException ignored) {
+            plugin.debug("Could not freeze vanilla bite timing for custom fishing minigame.");
+        }
     }
 
     private void completeSession(@NotNull Player player, @NotNull MinigameSession session) {
@@ -745,11 +804,20 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         private long lastPullMillis = System.currentTimeMillis();
         private long nextStruggleAtMillis = 0L;
         private long strugglingUntilMillis = 0L;
+        private double startDistance = -1.0D;
 
         private MinigameSession(@NotNull FishHook hook, @NotNull Fish fish, @Nullable CustomRod rod) {
             this.hook = hook;
             this.fish = fish;
             this.rod = rod;
+        }
+
+        private void captureStartDistance(@NotNull Player player) {
+            if (hook == null || !hook.isValid()) {
+                startDistance = -1.0D;
+                return;
+            }
+            startDistance = Math.max(1.0D, hook.getLocation().distance(player.getLocation()));
         }
     }
 
