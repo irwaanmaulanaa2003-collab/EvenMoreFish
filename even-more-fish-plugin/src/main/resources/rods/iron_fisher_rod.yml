@@ -6,13 +6,13 @@ allowed-rarities:
   - Rare
   - Epic
 rarity-weights:
-  Junk: 8
+  Junk: 9
   Common: 79
-  Rare: 10
+  Rare: 9
   Epic: 3
 pull-power: 5
-bite-speed-bonus: 10
-resistance-reduction: 4.0
+bite-speed-bonus: 15
+resistance-reduction: 4
 item:
   material: FISHING_ROD
   displayname: <bold><gray>Iron Fisher Rod
@@ -21,14 +21,17 @@ item:
   lore:
     - ''
     - '<gray>A balanced rod for serious fishers.</gray>'
-    - '<gray>Built to handle heavier catches.</gray>'
+    - '<gray>Strong enough to handle heavier catches.</gray>'
     - ''
-    - '<white>Tier: <yellow>III</yellow></white>'
-    - '<white>Luck: <green>+20%</green></white>'
-    - '<white>Durability: <green>Unbreakable</green></white>'
-    - '<white>Access: <gray>Built for consistent Rare catches and early Epic rewards.</gray></white>'
-    - '<white>Bite Speed: <aqua>+10%</aqua></white>'
+    - '<white>Tier: <yellow>IV</yellow></white>'
+    - '<white>Luck: <green>+15%</green></white>'
+    - '<white>Bite Speed: <aqua>+15%</aqua></white>'
     - '<white>Pull Power: <yellow>+5</yellow></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
-    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Better Rare chance with a small Epic chance.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
     - '<dark_gray>Fishing Rod Upgrade</dark_gray>'

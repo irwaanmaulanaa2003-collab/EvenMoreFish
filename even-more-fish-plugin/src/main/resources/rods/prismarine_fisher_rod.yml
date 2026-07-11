@@ -1,4 +1,4 @@
-id: emerald_fisher_rod
+id: prismarine_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -8,29 +8,29 @@ allowed-rarities:
   - Legendary
   - Mythic
 rarity-weights:
-  Junk: 4.5
-  Common: 64
-  Rare: 22
-  Epic: 7.5
-  Legendary: 1.8
-  Mythic: 0.2
-pull-power: 7
-bite-speed-bonus: 40
-resistance-reduction: 9
+  Junk: 3.5
+  Common: 58
+  Rare: 26
+  Epic: 9.5
+  Legendary: 2.6
+  Mythic: 0.4
+pull-power: 8
+bite-speed-bonus: 50
+resistance-reduction: 11
 item:
   material: FISHING_ROD
-  displayname: <bold><green>Emerald Fisher Rod
+  displayname: <bold><#00CED1>Prismarine Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A premium rod favored by wealthy fishers.</gray>'
-    - '<gray>Known for attracting rare aquatic treasures.</gray>'
+    - '<gray>A sea-forged rod that resonates with tides.</gray>'
+    - '<gray>Made for fishers chasing better catches.</gray>'
     - ''
-    - '<white>Tier: <yellow>IX</yellow></white>'
-    - '<white>Luck: <green>+40%</green></white>'
-    - '<white>Bite Speed: <aqua>+40%</aqua></white>'
-    - '<white>Pull Power: <yellow>+7</yellow></white>'
+    - '<white>Tier: <yellow>XI</yellow></white>'
+    - '<white>Luck: <green>+50%</green></white>'
+    - '<white>Bite Speed: <aqua>+50%</aqua></white>'
+    - '<white>Pull Power: <yellow>+8</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
     - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'

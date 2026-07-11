@@ -150,14 +150,24 @@ rod-shop:
   prices:
     wooden_fisher_rod: 0
     stone_fisher_rod: 20000
-    iron_fisher_rod: 75000
-    golden_fisher_rod: 150000
-    diamond_fisher_rod: 300000
-    emerald_fisher_rod: 650000
-    netherite_fisher_rod: 1200000
-    mythic_fisher_rod: 2000000
-    celestial_fisher_rod: 3250000
-    divine_fisher_rod: 5000000
+    copper_fisher_rod: 50000
+    iron_fisher_rod: 100000
+    golden_fisher_rod: 175000
+    lapis_fisher_rod: 275000
+    redstone_fisher_rod: 400000
+    diamond_fisher_rod: 600000
+    emerald_fisher_rod: 850000
+    obsidian_fisher_rod: 1200000
+    prismarine_fisher_rod: 1600000
+    netherite_fisher_rod: 2100000
+    oceanic_fisher_rod: 2700000
+    abyssal_fisher_rod: 3400000
+    mythic_fisher_rod: 4200000
+    celestial_fisher_rod: 5200000
+    astral_fisher_rod: 6300000
+    leviathan_fisher_rod: 7500000
+    eternal_fisher_rod: 8700000
+    divine_fisher_rod: 10000000
   upgrade-requirements:
     enabled: true
     # If true, buying a higher tier consumes the previous rod.
@@ -169,53 +179,132 @@ rod-shop:
       stone_fisher_rod:
         previous-rod: wooden_fisher_rod
         total-catches: 25
-      iron_fisher_rod:
+      copper_fisher_rod:
         previous-rod: stone_fisher_rod
-        total-catches: 75
+        total-catches: 60
         rarities:
-          Rare: 3
+          Rare: 2
+      iron_fisher_rod:
+        previous-rod: copper_fisher_rod
+        total-catches: 110
+        rarities:
+          Rare: 5
       golden_fisher_rod:
         previous-rod: iron_fisher_rod
-        total-catches: 150
+        total-catches: 180
         rarities:
           Rare: 10
           Epic: 1
-      diamond_fisher_rod:
+      lapis_fisher_rod:
         previous-rod: golden_fisher_rod
-        total-catches: 300
+        total-catches: 275
         rarities:
-          Rare: 25
-          Epic: 5
+          Rare: 16
+          Epic: 3
+      redstone_fisher_rod:
+        previous-rod: lapis_fisher_rod
+        total-catches: 400
+        rarities:
+          Rare: 24
+          Epic: 6
+      diamond_fisher_rod:
+        previous-rod: redstone_fisher_rod
+        total-catches: 550
+        rarities:
+          Rare: 35
+          Epic: 10
       emerald_fisher_rod:
         previous-rod: diamond_fisher_rod
-        total-catches: 500
+        total-catches: 725
         rarities:
-          Epic: 15
+          Rare: 50
+          Epic: 16
           Legendary: 1
-      netherite_fisher_rod:
+      obsidian_fisher_rod:
         previous-rod: emerald_fisher_rod
-        total-catches: 800
+        total-catches: 925
         rarities:
-          Epic: 30
+          Rare: 65
+          Epic: 24
+          Legendary: 2
+      prismarine_fisher_rod:
+        previous-rod: obsidian_fisher_rod
+        total-catches: 1150
+        rarities:
+          Rare: 85
+          Epic: 35
           Legendary: 3
-      mythic_fisher_rod:
-        previous-rod: netherite_fisher_rod
-        total-catches: 1200
+      netherite_fisher_rod:
+        previous-rod: prismarine_fisher_rod
+        total-catches: 1400
         rarities:
-          Legendary: 8
+          Rare: 105
+          Epic: 48
+          Legendary: 5
+      oceanic_fisher_rod:
+        previous-rod: netherite_fisher_rod
+        total-catches: 1700
+        rarities:
+          Rare: 130
+          Epic: 65
+          Legendary: 7
           Mythic: 1
+      abyssal_fisher_rod:
+        previous-rod: oceanic_fisher_rod
+        total-catches: 2050
+        rarities:
+          Rare: 160
+          Epic: 85
+          Legendary: 10
+          Mythic: 1
+      mythic_fisher_rod:
+        previous-rod: abyssal_fisher_rod
+        total-catches: 2450
+        rarities:
+          Rare: 195
+          Epic: 110
+          Legendary: 14
+          Mythic: 2
       celestial_fisher_rod:
         previous-rod: mythic_fisher_rod
-        total-catches: 1800
+        total-catches: 2900
         rarities:
-          Legendary: 15
+          Rare: 235
+          Epic: 140
+          Legendary: 18
           Mythic: 3
-      divine_fisher_rod:
+      astral_fisher_rod:
         previous-rod: celestial_fisher_rod
-        total-catches: 2500
+        total-catches: 3400
         rarities:
-          Legendary: 25
+          Rare: 280
+          Epic: 175
+          Legendary: 24
+          Mythic: 4
+      leviathan_fisher_rod:
+        previous-rod: astral_fisher_rod
+        total-catches: 3950
+        rarities:
+          Rare: 330
+          Epic: 215
+          Legendary: 31
+          Mythic: 6
+      eternal_fisher_rod:
+        previous-rod: leviathan_fisher_rod
+        total-catches: 4550
+        rarities:
+          Rare: 385
+          Epic: 260
+          Legendary: 39
           Mythic: 8
+      divine_fisher_rod:
+        previous-rod: eternal_fisher_rod
+        total-catches: 5200
+        rarities:
+          Rare: 450
+          Epic: 310
+          Legendary: 50
+          Mythic: 12
 
 # Backs up active competitions to a file.
 # Useful for crashes and such.

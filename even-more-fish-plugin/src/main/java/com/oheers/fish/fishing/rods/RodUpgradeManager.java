@@ -217,19 +217,21 @@ public final class RodUpgradeManager {
     }
 
     private @NotNull String displayRod(@NotNull String rodId) {
-        return switch (rodId.toLowerCase(Locale.ROOT)) {
-            case "wooden_fisher_rod" -> "Wooden Fisher Rod";
-            case "stone_fisher_rod" -> "Stone Fisher Rod";
-            case "iron_fisher_rod" -> "Iron Fisher Rod";
-            case "golden_fisher_rod" -> "Golden Fisher Rod";
-            case "diamond_fisher_rod" -> "Diamond Fisher Rod";
-            case "emerald_fisher_rod" -> "Emerald Fisher Rod";
-            case "netherite_fisher_rod" -> "Netherite Fisher Rod";
-            case "mythic_fisher_rod" -> "Mythic Fisher Rod";
-            case "celestial_fisher_rod" -> "Celestial Fisher Rod";
-            case "divine_fisher_rod" -> "Divine Fisher Rod";
-            default -> rodId;
-        };
+        String[] parts = rodId.toLowerCase(Locale.ROOT).split("_");
+        StringBuilder builder = new StringBuilder();
+        for (String part : parts) {
+            if (part.isBlank()) {
+                continue;
+            }
+            if (!builder.isEmpty()) {
+                builder.append(' ');
+            }
+            builder.append(part.substring(0, 1).toUpperCase(Locale.ROOT));
+            if (part.length() > 1) {
+                builder.append(part.substring(1));
+            }
+        }
+        return builder.toString();
     }
 
     private void save() {

@@ -1,4 +1,4 @@
-id: emerald_fisher_rod
+id: obsidian_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -8,29 +8,29 @@ allowed-rarities:
   - Legendary
   - Mythic
 rarity-weights:
-  Junk: 4.5
-  Common: 64
-  Rare: 22
-  Epic: 7.5
-  Legendary: 1.8
-  Mythic: 0.2
-pull-power: 7
-bite-speed-bonus: 40
-resistance-reduction: 9
+  Junk: 4
+  Common: 61
+  Rare: 24
+  Epic: 8.5
+  Legendary: 2.2
+  Mythic: 0.3
+pull-power: 8
+bite-speed-bonus: 45
+resistance-reduction: 10
 item:
   material: FISHING_ROD
-  displayname: <bold><green>Emerald Fisher Rod
+  displayname: <bold><dark_purple>Obsidian Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A premium rod favored by wealthy fishers.</gray>'
-    - '<gray>Known for attracting rare aquatic treasures.</gray>'
+    - '<gray>A heavy rod forged for rough waters.</gray>'
+    - '<gray>Its line holds firm under pressure.</gray>'
     - ''
-    - '<white>Tier: <yellow>IX</yellow></white>'
-    - '<white>Luck: <green>+40%</green></white>'
-    - '<white>Bite Speed: <aqua>+40%</aqua></white>'
-    - '<white>Pull Power: <yellow>+7</yellow></white>'
+    - '<white>Tier: <yellow>X</yellow></white>'
+    - '<white>Luck: <green>+45%</green></white>'
+    - '<white>Bite Speed: <aqua>+45%</aqua></white>'
+    - '<white>Pull Power: <yellow>+8</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
     - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'

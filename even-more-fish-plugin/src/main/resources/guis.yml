@@ -438,8 +438,8 @@ rod-shop-menu:
   layout:
     - "126515621"
     - "2abcdefg2"
-    - "3 h i j 3"
-    - "4       4"
+    - "3hijklmn3"
+    - "4opqrst 4"
     - "23  x  32"
     - "126515621"
   filler: black_stained_glass_pane
@@ -453,10 +453,11 @@ rod-shop-menu:
         - ''
         - '<gray>Price: <green>FREE</green></gray>'
         - '<gray>Tier: <yellow>I</yellow> <dark_gray>|</dark_gray> Luck: <green>+0%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+0%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+3</yellow></gray>'
         - '<gray>Durability: <red>Breakable</red></gray>'
         - '<gray>Common focused with a tiny Rare chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+0%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+3</yellow></gray>'
+        - ''
+        - '<gray>Requirement: <white>None</white></gray>'
         - ''
         - '<yellow>Click to claim.</yellow>'
     character: a
@@ -470,38 +471,61 @@ rod-shop-menu:
       lore:
         - ''
         - '<gray>Price: <green>$20,000</green></gray>'
-        - '<gray>Tier: <yellow>II</yellow> <dark_gray>|</dark_gray> Luck: <green>+10%</green></gray>'
+        - '<gray>Tier: <yellow>II</yellow> <dark_gray>|</dark_gray> Luck: <green>+5%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+5%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+4</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
         - '<gray>Better Rare chance with a small Epic chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+5%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+4</yellow></gray>'
         - ''
-        - '<gray>Requires: <white>Wooden Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>25</aqua></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Wooden Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>25</aqua></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
+        - '<yellow>Click to purchase.</yellow>'
     character: b
     click-action: buy-rod-stone_fisher_rod
+
+  copper-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><#B87333>Copper Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$50,000</green></gray>'
+        - '<gray>Tier: <yellow>III</yellow> <dark_gray>|</dark_gray> Luck: <green>+10%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+10%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+4</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Better Rare chance with a small Epic chance.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Stone Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>60</aqua></gray>'
+        - '<gray>- Rare: <aqua>2</aqua></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: c
+    click-action: buy-rod-copper_fisher_rod
 
   iron-rod:
     item:
       material: fishing_rod
-      displayname: <gray>Iron Fisher Rod
+      displayname: <bold><gray>Iron Fisher Rod
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$75,000</green></gray>'
-        - '<gray>Tier: <yellow>III</yellow> <dark_gray>|</dark_gray> Luck: <green>+20%</green></gray>'
+        - '<gray>Price: <green>$100,000</green></gray>'
+        - '<gray>Tier: <yellow>IV</yellow> <dark_gray>|</dark_gray> Luck: <green>+15%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+15%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+5</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Improved Rare and Epic chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+10%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+5</yellow></gray>'
+        - '<gray>Better Rare chance with a small Epic chance.</gray>'
         - ''
-        - '<gray>Requires: <white>Stone Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>75</aqua> <dark_gray>|</dark_gray> Rare: <aqua>3</aqua></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Copper Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>110</aqua></gray>'
+        - '<gray>- Rare: <aqua>5</aqua></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: c
+        - '<yellow>Click to purchase.</yellow>'
+    character: d
     click-action: buy-rod-iron_fisher_rod
 
   golden-rod:
@@ -511,20 +535,64 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$150,000</green></gray>'
-        - '<gray>Tier: <yellow>IV</yellow> <dark_gray>|</dark_gray> Luck: <green>+30%</green></gray>'
+        - '<gray>Price: <green>$175,000</green></gray>'
+        - '<gray>Tier: <yellow>V</yellow> <dark_gray>|</dark_gray> Luck: <green>+20%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+20%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+5</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Small Legendary chance unlocked.</gray>'
-        - '<gray>Bite Speed: <aqua>+15%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+6</yellow></gray>'
+        - '<gray>Legendary fish unlocked at a very small chance.</gray>'
         - ''
-        - '<gray>Requires: <white>Iron Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>150</aqua></gray>'
-        - '<gray>Rare: <aqua>10</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>1</light_purple></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Iron Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>180</aqua></gray>'
+        - '<gray>- Rare: <aqua>10</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>1</light_purple></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: d
+        - '<yellow>Click to purchase.</yellow>'
+    character: e
     click-action: buy-rod-golden_fisher_rod
+
+  lapis-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><blue>Lapis Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$275,000</green></gray>'
+        - '<gray>Tier: <yellow>VI</yellow> <dark_gray>|</dark_gray> Luck: <green>+25%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+25%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+6</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Legendary fish unlocked at a very small chance.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Golden Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>275</aqua></gray>'
+        - '<gray>- Rare: <aqua>16</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>3</light_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: f
+    click-action: buy-rod-lapis_fisher_rod
+
+  redstone-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><red>Redstone Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$400,000</green></gray>'
+        - '<gray>Tier: <yellow>VII</yellow> <dark_gray>|</dark_gray> Luck: <green>+30%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+30%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+6</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Legendary fish unlocked at a very small chance.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Lapis Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>400</aqua></gray>'
+        - '<gray>- Rare: <aqua>24</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>6</light_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: g
+    click-action: buy-rod-redstone_fisher_rod
 
   diamond-rod:
     item:
@@ -533,19 +601,19 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$300,000</green></gray>'
-        - '<gray>Tier: <yellow>V</yellow> <dark_gray>|</dark_gray> Luck: <green>+40%</green></gray>'
+        - '<gray>Price: <green>$600,000</green></gray>'
+        - '<gray>Tier: <yellow>VIII</yellow> <dark_gray>|</dark_gray> Luck: <green>+35%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+35%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+7</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Higher Epic and Legendary chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+20%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+7</yellow></gray>'
+        - '<gray>Legendary fish unlocked at a very small chance.</gray>'
         - ''
-        - '<gray>Requires: <white>Golden Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>300</aqua></gray>'
-        - '<gray>Rare: <aqua>25</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>5</light_purple></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Redstone Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>550</aqua></gray>'
+        - '<gray>- Rare: <aqua>35</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>10</light_purple></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: e
+        - '<yellow>Click to purchase.</yellow>'
+    character: h
     click-action: buy-rod-diamond_fisher_rod
 
   emerald-rod:
@@ -555,20 +623,67 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$650,000</green></gray>'
-        - '<gray>Tier: <yellow>VI</yellow> <dark_gray>|</dark_gray> Luck: <green>+50%</green></gray>'
+        - '<gray>Price: <green>$850,000</green></gray>'
+        - '<gray>Tier: <yellow>IX</yellow> <dark_gray>|</dark_gray> Luck: <green>+40%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+40%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+7</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Tiny Mythic chance unlocked.</gray>'
-        - '<gray>Bite Speed: <aqua>+25%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+8</yellow></gray>'
+        - '<gray>Mythic fish unlocked with controlled high-tier odds.</gray>'
         - ''
-        - '<gray>Requires: <white>Diamond Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>500</aqua></gray>'
-        - '<gray>Epic: <light_purple>15</light_purple> <dark_gray>|</dark_gray> Legendary: <gold>1</gold></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Diamond Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>725</aqua></gray>'
+        - '<gray>- Rare: <aqua>50</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>16</light_purple></gray>'
+        - '<gray>- Legendary: <gold>1</gold></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: f
+        - '<yellow>Click to purchase.</yellow>'
+    character: i
     click-action: buy-rod-emerald_fisher_rod
+
+  obsidian-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><dark_purple>Obsidian Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$1,200,000</green></gray>'
+        - '<gray>Tier: <yellow>X</yellow> <dark_gray>|</dark_gray> Luck: <green>+45%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+45%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+8</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Mythic fish unlocked with controlled high-tier odds.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Emerald Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>925</aqua></gray>'
+        - '<gray>- Rare: <aqua>65</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>24</light_purple></gray>'
+        - '<gray>- Legendary: <gold>2</gold></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: j
+    click-action: buy-rod-obsidian_fisher_rod
+
+  prismarine-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><#00CED1>Prismarine Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$1,600,000</green></gray>'
+        - '<gray>Tier: <yellow>XI</yellow> <dark_gray>|</dark_gray> Luck: <green>+50%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+50%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+8</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Mythic fish unlocked with controlled high-tier odds.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Obsidian Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>1,150</aqua></gray>'
+        - '<gray>- Rare: <aqua>85</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>35</light_purple></gray>'
+        - '<gray>- Legendary: <gold>3</gold></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: k
+    click-action: buy-rod-prismarine_fisher_rod
 
   netherite-rod:
     item:
@@ -577,20 +692,67 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$1,200,000</green></gray>'
-        - '<gray>Tier: <yellow>VII</yellow> <dark_gray>|</dark_gray> Luck: <green>+60%</green></gray>'
+        - '<gray>Price: <green>$2,100,000</green></gray>'
+        - '<gray>Tier: <yellow>XII</yellow> <dark_gray>|</dark_gray> Luck: <green>+55%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+55%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+9</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Better high-tier fish chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+30%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+9</yellow></gray>'
+        - '<gray>Mythic fish unlocked with controlled high-tier odds.</gray>'
         - ''
-        - '<gray>Requires: <white>Emerald Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>800</aqua></gray>'
-        - '<gray>Epic: <light_purple>30</light_purple> <dark_gray>|</dark_gray> Legendary: <gold>3</gold></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Prismarine Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>1,400</aqua></gray>'
+        - '<gray>- Rare: <aqua>105</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>48</light_purple></gray>'
+        - '<gray>- Legendary: <gold>5</gold></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: g
+        - '<yellow>Click to purchase.</yellow>'
+    character: l
     click-action: buy-rod-netherite_fisher_rod
+
+  oceanic-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><#1E90FF>Oceanic Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$2,700,000</green></gray>'
+        - '<gray>Tier: <yellow>XIII</yellow> <dark_gray>|</dark_gray> Luck: <green>+60%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+60%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+9</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Netherite Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>1,700</aqua></gray>'
+        - '<gray>- Rare: <aqua>130</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>65</light_purple></gray>'
+        - '<gray>- Legendary: <gold>7</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>1</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: m
+    click-action: buy-rod-oceanic_fisher_rod
+
+  abyssal-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><dark_blue>Abyssal Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$3,400,000</green></gray>'
+        - '<gray>Tier: <yellow>XIV</yellow> <dark_gray>|</dark_gray> Luck: <green>+65%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+65%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+10</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Oceanic Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>2,050</aqua></gray>'
+        - '<gray>- Rare: <aqua>160</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>85</light_purple></gray>'
+        - '<gray>- Legendary: <gold>10</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>1</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: n
+    click-action: buy-rod-abyssal_fisher_rod
 
   mythic-rod:
     item:
@@ -599,42 +761,113 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$2,000,000</green></gray>'
-        - '<gray>Tier: <yellow>VIII</yellow> <dark_gray>|</dark_gray> Luck: <green>+70%</green></gray>'
+        - '<gray>Price: <green>$4,200,000</green></gray>'
+        - '<gray>Tier: <yellow>XV</yellow> <dark_gray>|</dark_gray> Luck: <green>+70%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+70%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+10</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Very small Divine chance unlocked.</gray>'
-        - '<gray>Bite Speed: <aqua>+35%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+10</yellow></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
         - ''
-        - '<gray>Requires: <white>Netherite Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>1,200</aqua></gray>'
-        - '<gray>Legendary: <gold>8</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>1</dark_purple></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Abyssal Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>2,450</aqua></gray>'
+        - '<gray>- Rare: <aqua>195</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>110</light_purple></gray>'
+        - '<gray>- Legendary: <gold>14</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>2</dark_purple></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: h
+        - '<yellow>Click to purchase.</yellow>'
+    character: o
     click-action: buy-rod-mythic_fisher_rod
 
   celestial-rod:
     item:
       material: fishing_rod
-      displayname: <#87CEFA>Celestial Fisher Rod
+      displayname: <bold><#87CEFA>Celestial Fisher Rod
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$3,250,000</green></gray>'
-        - '<gray>Tier: <yellow>IX</yellow> <dark_gray>|</dark_gray> Luck: <green>+80%</green></gray>'
+        - '<gray>Price: <green>$5,200,000</green></gray>'
+        - '<gray>Tier: <yellow>XVI</yellow> <dark_gray>|</dark_gray> Luck: <green>+75%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+75%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+11</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Improved Legendary, Mythic, and Divine chance.</gray>'
-        - '<gray>Bite Speed: <aqua>+40%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+11</yellow></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
         - ''
-        - '<gray>Requires: <white>Mythic Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>1,800</aqua></gray>'
-        - '<gray>Legendary: <gold>15</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>3</dark_purple></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Mythic Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>2,900</aqua></gray>'
+        - '<gray>- Rare: <aqua>235</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>140</light_purple></gray>'
+        - '<gray>- Legendary: <gold>18</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>3</dark_purple></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: i
+        - '<yellow>Click to purchase.</yellow>'
+    character: p
     click-action: buy-rod-celestial_fisher_rod
+
+  astral-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><#9370DB>Astral Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$6,300,000</green></gray>'
+        - '<gray>Tier: <yellow>XVII</yellow> <dark_gray>|</dark_gray> Luck: <green>+80%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+80%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+11</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Celestial Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>3,400</aqua></gray>'
+        - '<gray>- Rare: <aqua>280</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>175</light_purple></gray>'
+        - '<gray>- Legendary: <gold>24</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>4</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: q
+    click-action: buy-rod-astral_fisher_rod
+
+  leviathan-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><dark_aqua>Leviathan Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$7,500,000</green></gray>'
+        - '<gray>Tier: <yellow>XVIII</yellow> <dark_gray>|</dark_gray> Luck: <green>+85%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+85%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+12</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Astral Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>3,950</aqua></gray>'
+        - '<gray>- Rare: <aqua>330</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>215</light_purple></gray>'
+        - '<gray>- Legendary: <gold>31</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>6</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: r
+    click-action: buy-rod-leviathan_fisher_rod
+
+  eternal-rod:
+    item:
+      material: fishing_rod
+      displayname: <bold><#FF69B4>Eternal Fisher Rod
+      glowing: false
+      lore:
+        - ''
+        - '<gray>Price: <green>$8,700,000</green></gray>'
+        - '<gray>Tier: <yellow>XIX</yellow> <dark_gray>|</dark_gray> Luck: <green>+90%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+90%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+12</yellow></gray>'
+        - '<gray>Durability: <green>Unbreakable</green></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
+        - ''
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Leviathan Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>4,550</aqua></gray>'
+        - '<gray>- Rare: <aqua>385</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>260</light_purple></gray>'
+        - '<gray>- Legendary: <gold>39</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>8</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to purchase.</yellow>'
+    character: s
+    click-action: buy-rod-eternal_fisher_rod
 
   divine-rod:
     item:
@@ -643,19 +876,20 @@ rod-shop-menu:
       glowing: false
       lore:
         - ''
-        - '<gray>Price: <green>$5,000,000</green></gray>'
-        - '<gray>Tier: <yellow>X</yellow> <dark_gray>|</dark_gray> Luck: <green>+90%</green></gray>'
+        - '<gray>Price: <green>$10,000,000</green></gray>'
+        - '<gray>Tier: <yellow>XX</yellow> <dark_gray>|</dark_gray> Luck: <green>+95%</green></gray>'
+        - '<gray>Bite Speed: <aqua>+95%</aqua> <dark_gray>|</dark_gray> Pull Power: <yellow>+13</yellow></gray>'
         - '<gray>Durability: <green>Unbreakable</green></gray>'
-        - '<gray>Best high-tier chance, but Divine fish remains rare.</gray>'
-        - '<gray>Bite Speed: <aqua>+45%</aqua></gray>'
-        - '<gray>Pull Power: <yellow>+12</yellow></gray>'
+        - '<gray>Can reach Divine fish, but the chance stays very rare.</gray>'
         - ''
-        - '<gray>Requires: <white>Celestial Rod</white></gray>'
-        - '<gray>Total Catches: <aqua>2,500</aqua></gray>'
-        - '<gray>Legendary: <gold>25</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>8</dark_purple></gray>'
+        - '<gray>Requirement:</gray>'
+        - '<gray>- Previous Rod: <white>Eternal Fisher Rod</white></gray>'
+        - '<gray>- Total Catches: <aqua>5,200</aqua></gray>'
+        - '<gray>- Rare: <aqua>450</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>310</light_purple></gray>'
+        - '<gray>- Legendary: <gold>50</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>12</dark_purple></gray>'
         - ''
-        - '<yellow>Click to upgrade.</yellow>'
-    character: j
+        - '<yellow>Click to purchase.</yellow>'
+    character: t
     click-action: buy-rod-divine_fisher_rod
 
   exit:

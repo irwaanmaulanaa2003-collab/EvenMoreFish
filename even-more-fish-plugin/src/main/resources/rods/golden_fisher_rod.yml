@@ -7,14 +7,14 @@ allowed-rarities:
   - Epic
   - Legendary
 rarity-weights:
-  Junk: 6
-  Common: 74
-  Rare: 15
-  Epic: 4.5
-  Legendary: 0.5
-pull-power: 6
-bite-speed-bonus: 15
-resistance-reduction: 6.0
+  Junk: 8
+  Common: 76
+  Rare: 12
+  Epic: 3.8
+  Legendary: 0.2
+pull-power: 5
+bite-speed-bonus: 20
+resistance-reduction: 5
 item:
   material: FISHING_ROD
   displayname: <bold><gold>Golden Fisher Rod
@@ -23,14 +23,17 @@ item:
   lore:
     - ''
     - '<gray>A polished rod with improved sensitivity.</gray>'
-    - '<gray>Its shine attracts better catches.</gray>'
+    - '<gray>Its shine attracts better opportunities.</gray>'
     - ''
-    - '<white>Tier: <yellow>IV</yellow></white>'
-    - '<white>Luck: <green>+30%</green></white>'
+    - '<white>Tier: <yellow>V</yellow></white>'
+    - '<white>Luck: <green>+20%</green></white>'
+    - '<white>Bite Speed: <aqua>+20%</aqua></white>'
+    - '<white>Pull Power: <yellow>+5</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
-    - '<white>Access: <gray>Unlocks a very small Legendary chance.</gray></white>'
-    - '<white>Bite Speed: <aqua>+15%</aqua></white>'
-    - '<white>Pull Power: <yellow>+6</yellow></white>'
     - ''
-    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
-    - '<dark_gray>Advanced Fishing Rod</dark_gray>'
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Legendary fish unlocked at a very small chance.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
+    - '<dark_gray>Fishing Rod Upgrade</dark_gray>'

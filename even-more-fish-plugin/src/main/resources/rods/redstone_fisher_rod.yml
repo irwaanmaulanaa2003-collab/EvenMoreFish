@@ -1,4 +1,4 @@
-id: diamond_fisher_rod
+id: redstone_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -7,28 +7,28 @@ allowed-rarities:
   - Epic
   - Legendary
 rarity-weights:
-  Junk: 5
-  Common: 67
-  Rare: 20
-  Epic: 6.5
-  Legendary: 1.5
-pull-power: 7
-bite-speed-bonus: 35
-resistance-reduction: 8
+  Junk: 6
+  Common: 70
+  Rare: 18
+  Epic: 5
+  Legendary: 1
+pull-power: 6
+bite-speed-bonus: 30
+resistance-reduction: 7
 item:
   material: FISHING_ROD
-  displayname: <bold><aqua>Diamond Fisher Rod
+  displayname: <bold><red>Redstone Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A durable rod for deep-water fishing.</gray>'
-    - '<gray>Built for valuable ocean catches.</gray>'
+    - '<gray>A responsive rod with a lively reel.</gray>'
+    - '<gray>Helps you react faster when fish strike.</gray>'
     - ''
-    - '<white>Tier: <yellow>VIII</yellow></white>'
-    - '<white>Luck: <green>+35%</green></white>'
-    - '<white>Bite Speed: <aqua>+35%</aqua></white>'
-    - '<white>Pull Power: <yellow>+7</yellow></white>'
+    - '<white>Tier: <yellow>VII</yellow></white>'
+    - '<white>Luck: <green>+30%</green></white>'
+    - '<white>Bite Speed: <aqua>+30%</aqua></white>'
+    - '<white>Pull Power: <yellow>+6</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
     - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'

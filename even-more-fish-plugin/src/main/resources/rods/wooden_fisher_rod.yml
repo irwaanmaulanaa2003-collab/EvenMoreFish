@@ -10,7 +10,7 @@ rarity-weights:
   Rare: 1
 pull-power: 3
 bite-speed-bonus: 0
-resistance-reduction: 0.0
+resistance-reduction: 0
 item:
   material: FISHING_ROD
   displayname: <bold><white>Wooden Fisher Rod
@@ -18,15 +18,18 @@ item:
   unbreakable: false
   lore:
     - ''
-    - '<gray>A simple starter rod for new fishers.</gray>'
-    - '<gray>Reliable enough to begin your fishing journey.</gray>'
+    - '<gray>A simple rod made for beginner fishers.</gray>'
+    - '<gray>Perfect for learning the basics of fishing.</gray>'
     - ''
     - '<white>Tier: <yellow>I</yellow></white>'
     - '<white>Luck: <green>+0%</green></white>'
-    - '<white>Durability: <red>Breakable</red></white>'
-    - '<white>Access: <gray>Starter rod for basic fishing rewards.</gray></white>'
     - '<white>Bite Speed: <aqua>+0%</aqua></white>'
     - '<white>Pull Power: <yellow>+3</yellow></white>'
+    - '<white>Durability: <red>Breakable</red></white>'
     - ''
-    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<white>Requirement: <gray>None</gray></white>'
+    - '<white>Access: <gray>Common focused with a tiny Rare chance.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
     - '<dark_gray>Starter Fishing Rod</dark_gray>'

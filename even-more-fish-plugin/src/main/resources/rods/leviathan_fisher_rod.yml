@@ -1,0 +1,43 @@
+id: leviathan_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+  - Divine
+rarity-weights:
+  Junk: 1
+  Common: 37
+  Rare: 35
+  Epic: 19.5
+  Legendary: 5.8
+  Mythic: 1.4
+  Divine: 0.3
+pull-power: 12
+bite-speed-bonus: 85
+resistance-reduction: 18
+item:
+  material: FISHING_ROD
+  displayname: <bold><dark_aqua>Leviathan Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A powerful rod built to face ocean legends.</gray>'
+    - '<gray>Its strength is felt with every pull.</gray>'
+    - ''
+    - '<white>Tier: <yellow>XVIII</yellow></white>'
+    - '<white>Luck: <green>+85%</green></white>'
+    - '<white>Bite Speed: <aqua>+85%</aqua></white>'
+    - '<white>Pull Power: <yellow>+12</yellow></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - ''
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Can reach Divine fish, but the chance stays very rare.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
+    - '<dark_gray>Legendary Fishing Rod</dark_gray>'

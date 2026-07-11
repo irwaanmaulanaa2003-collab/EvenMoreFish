@@ -1,4 +1,4 @@
-id: diamond_fisher_rod
+id: lapis_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -7,28 +7,28 @@ allowed-rarities:
   - Epic
   - Legendary
 rarity-weights:
-  Junk: 5
-  Common: 67
-  Rare: 20
-  Epic: 6.5
-  Legendary: 1.5
-pull-power: 7
-bite-speed-bonus: 35
-resistance-reduction: 8
+  Junk: 7
+  Common: 73
+  Rare: 15
+  Epic: 4.5
+  Legendary: 0.5
+pull-power: 6
+bite-speed-bonus: 25
+resistance-reduction: 6
 item:
   material: FISHING_ROD
-  displayname: <bold><aqua>Diamond Fisher Rod
+  displayname: <bold><blue>Lapis Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A durable rod for deep-water fishing.</gray>'
-    - '<gray>Built for valuable ocean catches.</gray>'
+    - '<gray>A rod infused with deep-blue ocean energy.</gray>'
+    - '<gray>Designed for longer fishing sessions.</gray>'
     - ''
-    - '<white>Tier: <yellow>VIII</yellow></white>'
-    - '<white>Luck: <green>+35%</green></white>'
-    - '<white>Bite Speed: <aqua>+35%</aqua></white>'
-    - '<white>Pull Power: <yellow>+7</yellow></white>'
+    - '<white>Tier: <yellow>VI</yellow></white>'
+    - '<white>Luck: <green>+25%</green></white>'
+    - '<white>Bite Speed: <aqua>+25%</aqua></white>'
+    - '<white>Pull Power: <yellow>+6</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
     - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'

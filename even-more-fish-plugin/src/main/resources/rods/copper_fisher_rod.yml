@@ -1,4 +1,4 @@
-id: stone_fisher_rod
+id: copper_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -6,26 +6,26 @@ allowed-rarities:
   - Rare
   - Epic
 rarity-weights:
-  Junk: 11
-  Common: 85
-  Rare: 3.5
-  Epic: 0.5
+  Junk: 10
+  Common: 82
+  Rare: 6
+  Epic: 2
 pull-power: 4
-bite-speed-bonus: 5
-resistance-reduction: 2
+bite-speed-bonus: 10
+resistance-reduction: 3
 item:
   material: FISHING_ROD
-  displayname: <bold><gray>Stone Fisher Rod
+  displayname: <bold><#B87333>Copper Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A sturdy rod built for calm waters.</gray>'
-    - '<gray>A reliable first upgrade for early catches.</gray>'
+    - '<gray>A warm copper rod with better line control.</gray>'
+    - '<gray>Made for fishers ready to leave starter gear behind.</gray>'
     - ''
-    - '<white>Tier: <yellow>II</yellow></white>'
-    - '<white>Luck: <green>+5%</green></white>'
-    - '<white>Bite Speed: <aqua>+5%</aqua></white>'
+    - '<white>Tier: <yellow>III</yellow></white>'
+    - '<white>Luck: <green>+10%</green></white>'
+    - '<white>Bite Speed: <aqua>+10%</aqua></white>'
     - '<white>Pull Power: <yellow>+4</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''

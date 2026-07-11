@@ -9,17 +9,17 @@ allowed-rarities:
   - Mythic
 rarity-weights:
   Junk: 3
-  Common: 56
-  Rare: 27
-  Epic: 11
-  Legendary: 2.5
+  Common: 55
+  Rare: 28
+  Epic: 10.5
+  Legendary: 3
   Mythic: 0.5
 pull-power: 9
-bite-speed-bonus: 30
-resistance-reduction: 12.0
+bite-speed-bonus: 55
+resistance-reduction: 12
 item:
   material: FISHING_ROD
-  displayname: <dark_gray>Netherite Fisher Rod
+  displayname: <bold><dark_gray>Netherite Fisher Rod
   glowing: false
   unbreakable: true
   lore:
@@ -27,12 +27,15 @@ item:
     - '<gray>A reinforced rod made for extreme waters.</gray>'
     - '<gray>Powerful enough to fight stronger fish.</gray>'
     - ''
-    - '<white>Tier: <yellow>VII</yellow></white>'
-    - '<white>Luck: <green>+60%</green></white>'
-    - '<white>Durability: <green>Unbreakable</green></white>'
-    - '<white>Access: <gray>Better Epic, Legendary, and Mythic chance.</gray></white>'
-    - '<white>Bite Speed: <aqua>+30%</aqua></white>'
+    - '<white>Tier: <yellow>XII</yellow></white>'
+    - '<white>Luck: <green>+55%</green></white>'
+    - '<white>Bite Speed: <aqua>+55%</aqua></white>'
     - '<white>Pull Power: <yellow>+9</yellow></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
-    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
-    - '<dark_gray>Elite Fishing Rod</dark_gray>'
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Mythic fish unlocked with controlled high-tier odds.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
+    - '<dark_gray>Master Fishing Rod</dark_gray>'

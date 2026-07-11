@@ -10,15 +10,15 @@ allowed-rarities:
   - Divine
 rarity-weights:
   Junk: 0.5
-  Common: 40
-  Rare: 32
-  Epic: 20
-  Legendary: 5.5
-  Mythic: 1.6
-  Divine: 0.4
-pull-power: 12
-bite-speed-bonus: 45
-resistance-reduction: 18.0
+  Common: 31
+  Rare: 37
+  Epic: 23
+  Legendary: 7
+  Mythic: 1.8
+  Divine: 0.7
+pull-power: 13
+bite-speed-bonus: 95
+resistance-reduction: 20
 item:
   material: FISHING_ROD
   displayname: <bold><gold>Divine Fisher Rod
@@ -26,15 +26,18 @@ item:
   unbreakable: true
   lore:
     - ''
-    - '<gray>The finest fishing rod known to the ocean.</gray>'
-    - '<gray>Created for fishers chasing legendary catches.</gray>'
+    - '<gray>A sacred rod blessed by the ocean itself.</gray>'
+    - '<gray>Only worthy fishers can control its power.</gray>'
     - ''
-    - '<white>Tier: <yellow>X</yellow></white>'
-    - '<white>Luck: <green>+90%</green></white>'
+    - '<white>Tier: <yellow>XX</yellow></white>'
+    - '<white>Luck: <green>+95%</green></white>'
+    - '<white>Bite Speed: <aqua>+95%</aqua></white>'
+    - '<white>Pull Power: <yellow>+13</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
-    - '<white>Access: <gray>Best chance for Legendary, Mythic, and Divine fish.</gray></white>'
-    - '<white>Bite Speed: <aqua>+45%</aqua></white>'
-    - '<white>Pull Power: <yellow>+12</yellow></white>'
     - ''
-    - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Can reach Divine fish, but the chance stays very rare.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
     - '<dark_gray>Divine Fishing Rod</dark_gray>'

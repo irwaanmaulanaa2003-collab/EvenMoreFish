@@ -1,4 +1,4 @@
-id: mythic_fisher_rod
+id: oceanic_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -9,30 +9,30 @@ allowed-rarities:
   - Mythic
   - Divine
 rarity-weights:
-  Junk: 1.8
-  Common: 46
-  Rare: 32
-  Epic: 15
-  Legendary: 4.2
-  Mythic: 0.9
+  Junk: 2.5
+  Common: 52
+  Rare: 29.5
+  Epic: 12
+  Legendary: 3.3
+  Mythic: 0.6
   Divine: 0.1
-pull-power: 10
-bite-speed-bonus: 70
-resistance-reduction: 15
+pull-power: 9
+bite-speed-bonus: 60
+resistance-reduction: 13
 item:
   material: FISHING_ROD
-  displayname: <bold><light_purple>Mythic Fisher Rod
+  displayname: <bold><#1E90FF>Oceanic Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A mysterious rod infused with ocean energy.</gray>'
-    - '<gray>Only skilled fishers can control its full potential.</gray>'
+    - '<gray>A refined rod carrying the pull of the ocean.</gray>'
+    - '<gray>Perfect for skilled fishers seeking rare catches.</gray>'
     - ''
-    - '<white>Tier: <yellow>XV</yellow></white>'
-    - '<white>Luck: <green>+70%</green></white>'
-    - '<white>Bite Speed: <aqua>+70%</aqua></white>'
-    - '<white>Pull Power: <yellow>+10</yellow></white>'
+    - '<white>Tier: <yellow>XIII</yellow></white>'
+    - '<white>Luck: <green>+60%</green></white>'
+    - '<white>Bite Speed: <aqua>+60%</aqua></white>'
+    - '<white>Pull Power: <yellow>+9</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
     - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
@@ -40,4 +40,4 @@ item:
     - ''
     - '<dark_gray>Right-click water to cast.</dark_gray>'
     - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
-    - '<dark_gray>Mythic Fishing Rod</dark_gray>'
+    - '<dark_gray>Master Fishing Rod</dark_gray>'

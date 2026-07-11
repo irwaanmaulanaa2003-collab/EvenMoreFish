@@ -1,4 +1,4 @@
-id: celestial_fisher_rod
+id: astral_fisher_rod
 disabled: false
 allowed-rarities:
   - Junk
@@ -9,29 +9,29 @@ allowed-rarities:
   - Mythic
   - Divine
 rarity-weights:
-  Junk: 1.5
-  Common: 43
-  Rare: 33
-  Epic: 16.5
-  Legendary: 4.8
-  Mythic: 1
-  Divine: 0.2
+  Junk: 1.2
+  Common: 40
+  Rare: 34
+  Epic: 18
+  Legendary: 5.3
+  Mythic: 1.2
+  Divine: 0.3
 pull-power: 11
-bite-speed-bonus: 75
-resistance-reduction: 16
+bite-speed-bonus: 80
+resistance-reduction: 17
 item:
   material: FISHING_ROD
-  displayname: <bold><#87CEFA>Celestial Fisher Rod
+  displayname: <bold><#9370DB>Astral Fisher Rod
   glowing: false
   unbreakable: true
   lore:
     - ''
-    - '<gray>A rare rod blessed by the stars above.</gray>'
-    - '<gray>Its line reaches beyond ordinary waters.</gray>'
+    - '<gray>A radiant rod touched by distant starlight.</gray>'
+    - '<gray>Created for fishers who master patience.</gray>'
     - ''
-    - '<white>Tier: <yellow>XVI</yellow></white>'
-    - '<white>Luck: <green>+75%</green></white>'
-    - '<white>Bite Speed: <aqua>+75%</aqua></white>'
+    - '<white>Tier: <yellow>XVII</yellow></white>'
+    - '<white>Luck: <green>+80%</green></white>'
+    - '<white>Bite Speed: <aqua>+80%</aqua></white>'
     - '<white>Pull Power: <yellow>+11</yellow></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - ''
@@ -40,4 +40,4 @@ item:
     - ''
     - '<dark_gray>Right-click water to cast.</dark_gray>'
     - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
-    - '<dark_gray>Celestial Fishing Rod</dark_gray>'
+    - '<dark_gray>Astral Fishing Rod</dark_gray>'

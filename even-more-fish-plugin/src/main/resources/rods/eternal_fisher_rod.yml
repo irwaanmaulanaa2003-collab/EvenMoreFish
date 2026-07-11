@@ -1,0 +1,43 @@
+id: eternal_fisher_rod
+disabled: false
+allowed-rarities:
+  - Junk
+  - Common
+  - Rare
+  - Epic
+  - Legendary
+  - Mythic
+  - Divine
+rarity-weights:
+  Junk: 0.8
+  Common: 34
+  Rare: 36
+  Epic: 21
+  Legendary: 6.2
+  Mythic: 1.6
+  Divine: 0.4
+pull-power: 12
+bite-speed-bonus: 90
+resistance-reduction: 19
+item:
+  material: FISHING_ROD
+  displayname: <bold><#FF69B4>Eternal Fisher Rod
+  glowing: false
+  unbreakable: true
+  lore:
+    - ''
+    - '<gray>A timeless rod made for elite fishers.</gray>'
+    - '<gray>Every cast carries the weight of mastery.</gray>'
+    - ''
+    - '<white>Tier: <yellow>XIX</yellow></white>'
+    - '<white>Luck: <green>+90%</green></white>'
+    - '<white>Bite Speed: <aqua>+90%</aqua></white>'
+    - '<white>Pull Power: <yellow>+12</yellow></white>'
+    - '<white>Durability: <green>Unbreakable</green></white>'
+    - ''
+    - '<white>Requirement: <gray>See /fishstats and Rod Shop</gray></white>'
+    - '<white>Access: <gray>Can reach Divine fish, but the chance stays very rare.</gray></white>'
+    - ''
+    - '<dark_gray>Right-click water to cast.</dark_gray>'
+    - '<dark_gray>Sneak repeatedly to reel the fish.</dark_gray>'
+    - '<dark_gray>Eternal Fishing Rod</dark_gray>'
