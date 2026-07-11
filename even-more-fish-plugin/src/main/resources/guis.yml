@@ -50,7 +50,7 @@ general:
         - <yellow>Go to the last page
 
 main-menu:
-  title: <#006F86>EvenMoreFish - Main Menu
+  title: <#006F86>Fishing - Main Menu
   layout:
     - "126515621"
     - "23     32"
@@ -145,7 +145,7 @@ main-menu:
     click-action: full-exit
 
 sell-menu-normal:
-  title: <#006F86>EvenMoreFish - Sell Fish
+  title: <#006F86>Fishing - Sell Fish
   layout:
     - "iiiiiiiii"
     - "iiiiiiiii"
@@ -190,7 +190,7 @@ sell-menu-normal:
       right: full-exit
 
 sell-menu-confirm:
-  title: <#006F86>EvenMoreFish - Sell Fish (Confirm)
+  title: <#006F86>Fishing - Sell Fish (Confirm)
   layout:
     - "iiiiiiiii"
     - "iiiiiiiii"
@@ -236,7 +236,7 @@ sell-menu-confirm:
       right: full-exit
 
 baits-menu:
-  title: <#006F86>EvenMoreFish - Baits
+  title: <#006F86>Fishing - Baits
   layout:
     - "  23232  "
     - "23 4 4 32"
@@ -284,7 +284,7 @@ baits-menu:
     click-action: previous-page
 
 apply-baits-menu:
-  title: <#006F86>EvenMoreFish - Apply Baits
+  title: <#006F86>Fishing - Apply Baits
   layout:
     - "bbbbbbbbb"
     - "bbbbbbbbb"
@@ -308,7 +308,7 @@ apply-baits-menu:
 
 # The main menu for selecting the rarity you'd like to view
 journal-menu:
-  title: <#006F86>EvenMoreFish - Fish Journal
+  title: <#006F86>Fishing - Fish Journal
   layout:
     - "232323232"
     - "3rrrrrrr3"
@@ -434,7 +434,7 @@ version: 4
 
 
 rod-shop-menu:
-  title: <#006F86>EvenMoreFish - Rod Shop
+  title: <#006F86>Fishing - Rod Shop
   layout:
     - "126515621"
     - "2abcdefg2"
@@ -447,7 +447,7 @@ rod-shop-menu:
   wooden-rod:
     item:
       material: fishing_rod
-      displayname: <white>Wooden Fisher Rod
+      displayname: <bold><white>Wooden Fisher Rod
       glowing: false
       lore:
         - ''
@@ -465,7 +465,7 @@ rod-shop-menu:
   stone-rod:
     item:
       material: fishing_rod
-      displayname: <gray>Stone Fisher Rod
+      displayname: <bold><gray>Stone Fisher Rod
       glowing: false
       lore:
         - ''
@@ -507,7 +507,7 @@ rod-shop-menu:
   golden-rod:
     item:
       material: fishing_rod
-      displayname: <gold>Golden Fisher Rod
+      displayname: <bold><gold>Golden Fisher Rod
       glowing: false
       lore:
         - ''
@@ -529,7 +529,7 @@ rod-shop-menu:
   diamond-rod:
     item:
       material: fishing_rod
-      displayname: <aqua>Diamond Fisher Rod
+      displayname: <bold><aqua>Diamond Fisher Rod
       glowing: false
       lore:
         - ''
@@ -551,7 +551,7 @@ rod-shop-menu:
   emerald-rod:
     item:
       material: fishing_rod
-      displayname: <green>Emerald Fisher Rod
+      displayname: <bold><green>Emerald Fisher Rod
       glowing: false
       lore:
         - ''
@@ -573,7 +573,7 @@ rod-shop-menu:
   netherite-rod:
     item:
       material: fishing_rod
-      displayname: <dark_gray>Netherite Fisher Rod
+      displayname: <bold><dark_gray>Netherite Fisher Rod
       glowing: false
       lore:
         - ''
@@ -595,7 +595,7 @@ rod-shop-menu:
   mythic-rod:
     item:
       material: fishing_rod
-      displayname: <light_purple>Mythic Fisher Rod
+      displayname: <bold><light_purple>Mythic Fisher Rod
       glowing: false
       lore:
         - ''
@@ -639,7 +639,7 @@ rod-shop-menu:
   divine-rod:
     item:
       material: fishing_rod
-      displayname: <gold>Divine Fisher Rod
+      displayname: <bold><gold>Divine Fisher Rod
       glowing: false
       lore:
         - ''

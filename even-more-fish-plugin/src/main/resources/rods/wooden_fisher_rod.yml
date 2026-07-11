@@ -13,7 +13,7 @@ bite-speed-bonus: 0
 resistance-reduction: 0.0
 item:
   material: FISHING_ROD
-  displayname: <white>Wooden Fisher Rod
+  displayname: <bold><white>Wooden Fisher Rod
   glowing: false
   unbreakable: false
   lore:

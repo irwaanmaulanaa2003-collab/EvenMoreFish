@@ -264,6 +264,16 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             }
             return false;
         }
+        CustomRod customRod = getHeldCustomRod(rod);
+        if (customRod != null && !RodUpgradeManager.getInstance().meetsRequirements(player, customRod.getId())) {
+            if (notify) {
+                sendMinigameMessage(player, "rod-locked", "<red>You do not meet the requirements to use this rod yet.</red>", Map.of());
+                for (String missing : RodUpgradeManager.getInstance().getMissingRequirements(player, customRod.getId())) {
+                    player.sendMessage("§c- " + missing);
+                }
+            }
+            return false;
+        }
         return true;
     }
 

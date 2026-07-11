@@ -7,7 +7,6 @@ import com.oheers.fish.config.MainConfig;
 import com.oheers.fish.api.economy.Economy;
 import com.oheers.fish.fishing.rods.CustomRod;
 import com.oheers.fish.fishing.rods.RodManager;
-import com.oheers.fish.fishing.rods.RodUpgradeManager;
 import com.oheers.fish.database.DatabaseUtil;
 import com.oheers.fish.gui.guis.BaitsGui;
 import com.oheers.fish.gui.guis.FishJournalGui;
@@ -222,15 +221,6 @@ public class GuiUtils {
             player.sendMessage(Component.text("Rod not found: " + rodId));
             return;
         }
-        RodUpgradeManager upgrades = RodUpgradeManager.getInstance();
-        if (!upgrades.meetsRequirements(player, rodId)) {
-            player.sendMessage(Component.text("Requirement not met for " + rodId + ":"));
-            for (String missing : upgrades.getMissingRequirements(player, rodId)) {
-                player.sendMessage(Component.text("- " + missing));
-            }
-            return;
-        }
-
         if (price > 0 && !Economy.getInstance().isEnabled()) {
             player.sendMessage(Component.text("Economy is not available."));
             return;
@@ -242,17 +232,8 @@ public class GuiUtils {
         if (price > 0) {
             Economy.getInstance().withdraw(player, price, false);
         }
-
-        if (!upgrades.consumePreviousRod(player, rodId)) {
-            if (price > 0) {
-                Economy.getInstance().deposit(player, price, false);
-            }
-            player.sendMessage(Component.text("Previous rod is required for this upgrade."));
-            return;
-        }
-
         FishUtils.giveItem(rod.create(), player);
-        player.sendMessage(Component.text("Purchased " + rodId + " for " + price + "."));
+        player.sendMessage(Component.text("Purchased " + rodId + " for " + price + ". Use /fishstats to check unlock requirements."));
         closeGui(player);
     }
 

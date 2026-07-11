@@ -5,9 +5,9 @@ import com.oheers.fish.config.MessageConfig;
 public enum PrefixType {
 
     NONE(null, null),
-    ADMIN("prefix-admin", "<red>[EvenMoreFish] "),
-    DEFAULT("prefix-regular", "<green>[EvenMoreFish] "),
-    ERROR("prefix-error", "<red>[EvenMoreFish] ");
+    ADMIN("prefix-admin", "<red>[Fishing] "),
+    DEFAULT("prefix-regular", "<green>[Fishing] "),
+    ERROR("prefix-error", "<red>[Fishing] ");
 
     private final String id, normal;
 

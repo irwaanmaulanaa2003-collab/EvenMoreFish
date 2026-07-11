@@ -17,7 +17,7 @@ bite-speed-bonus: 15
 resistance-reduction: 6.0
 item:
   material: FISHING_ROD
-  displayname: <gold>Golden Fisher Rod
+  displayname: <bold><gold>Golden Fisher Rod
   glowing: false
   unbreakable: true
   lore:

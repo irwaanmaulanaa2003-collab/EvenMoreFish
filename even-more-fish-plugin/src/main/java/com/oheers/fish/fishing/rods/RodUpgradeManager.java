@@ -51,17 +51,26 @@ public final class RodUpgradeManager {
         UUID uuid = player.getUniqueId();
         String rarity = normalize(rarityId);
         String base = uuid.toString();
-        progressConfig.set(base + ".total-catches", getTotalCatches(player) + 1);
-        progressConfig.set(base + ".rarities." + rarity, getRarityCatches(player, rarity) + 1);
+        progressConfig.set(base + ".name", player.getName());
+        progressConfig.set(base + ".total-catches", getTotalCatches(uuid) + 1);
+        progressConfig.set(base + ".rarities." + rarity, getRarityCatches(uuid, rarity) + 1);
         save();
     }
 
     public int getTotalCatches(@NotNull Player player) {
-        return progressConfig.getInt(player.getUniqueId() + ".total-catches", 0);
+        return getTotalCatches(player.getUniqueId());
+    }
+
+    public int getTotalCatches(@NotNull UUID uuid) {
+        return progressConfig.getInt(uuid + ".total-catches", 0);
     }
 
     public int getRarityCatches(@NotNull Player player, @NotNull String rarityId) {
-        return progressConfig.getInt(player.getUniqueId() + ".rarities." + normalize(rarityId), 0);
+        return getRarityCatches(player.getUniqueId(), rarityId);
+    }
+
+    public int getRarityCatches(@NotNull UUID uuid, @NotNull String rarityId) {
+        return progressConfig.getInt(uuid + ".rarities." + normalize(rarityId), 0);
     }
 
     public boolean meetsRequirements(@NotNull Player player, @NotNull String rodId) {
@@ -105,6 +114,42 @@ public final class RodUpgradeManager {
         }
 
         return missing;
+    }
+
+    public @NotNull List<String> getProgressLines(@NotNull Player player) {
+        return getProgressLines(player.getUniqueId(), player.getName());
+    }
+
+    public @NotNull List<String> getProgressLines(@NotNull UUID uuid, @NotNull String name) {
+        List<String> lines = new ArrayList<>();
+        lines.add("Fishing progress for " + name + ":");
+        lines.add("Total Catches: " + getTotalCatches(uuid));
+        lines.add("Junk: " + getRarityCatches(uuid, "junk"));
+        lines.add("Common: " + getRarityCatches(uuid, "common"));
+        lines.add("Rare: " + getRarityCatches(uuid, "rare"));
+        lines.add("Epic: " + getRarityCatches(uuid, "epic"));
+        lines.add("Legendary: " + getRarityCatches(uuid, "legendary"));
+        lines.add("Mythic: " + getRarityCatches(uuid, "mythic"));
+        lines.add("Divine: " + getRarityCatches(uuid, "divine"));
+        return lines;
+    }
+
+    public @Nullable UUID findUuidByName(@NotNull String name) {
+        for (String key : progressConfig.getKeys(false)) {
+            String stored = progressConfig.getString(key + ".name", "");
+            if (stored != null && stored.equalsIgnoreCase(name)) {
+                try {
+                    return UUID.fromString(key);
+                } catch (IllegalArgumentException ignored) {
+                    return null;
+                }
+            }
+        }
+        return null;
+    }
+
+    public @NotNull String getStoredName(@NotNull UUID uuid) {
+        return progressConfig.getString(uuid + ".name", uuid.toString());
     }
 
     public boolean consumePreviousRod(@NotNull Player player, @NotNull String rodId) {

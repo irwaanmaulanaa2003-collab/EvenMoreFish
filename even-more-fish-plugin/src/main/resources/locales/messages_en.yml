@@ -6,11 +6,11 @@
 # [noPrefix] - The message will not have a prefix.
 
 # The prefix shown in player-facing messages. Keeping the space in is recommended.
-prefix-regular: '<gradient:#E6F9FF:#8FD9FB>[EvenMoreFish] '
+prefix-regular: '<gradient:#E6F9FF:#8FD9FB>[Fishing] '
 # The prefix shown in admin commands.
-prefix-admin: '<gradient:#FFECEC:#FF5555>[EvenMoreFish] '
+prefix-admin: '<gradient:#FFECEC:#FF5555>[Fishing] '
 # The prefix shown when errors occur e.g. no permission to run a command.
-prefix-error: '<gradient:#FFECEC:#FF5555>[EvenMoreFish] '
+prefix-error: '<gradient:#FFECEC:#FF5555>[Fishing] '
 
 # Sent to players when they catch a fish with a length.
 fish-caught: <white><b>{player}</b> has fished a {length}cm <b>{rarity}</b> {fish}!

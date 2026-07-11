@@ -161,8 +161,8 @@ rod-shop:
   upgrade-requirements:
     enabled: true
     # If true, buying a higher tier consumes the previous rod.
-    # This prevents players from skipping or keeping every upgrade for free.
-    consume-previous-rod: true
+    # Disabled here so players can buy rods first, but cannot use locked rods until requirements are met.
+    consume-previous-rod: false
     requirements:
       wooden_fisher_rod:
         total-catches: 0
@@ -403,6 +403,9 @@ command:
   # Aliases for the main command
   aliases:
     - evenmorefish
+    - fishing
+    - sellfish
+    - fishstats
 
   # Change the name of the plugin's subcommands
   subcommands:
@@ -419,7 +422,7 @@ command:
     # The /emf top command
     top: "top"
     # The /emf shop command
-    shop: "shop"
+    shop: "sellfish"
     # The /emf sellall command
     sellall: "sellall"
     # The /emf applybaits command
@@ -472,3 +475,9 @@ dimension-fishing:
 # DO NOT EDIT THIS VALUE OR THINGS WILL BREAK!!!
 version: 9
 
+
+# Custom shortcut commands handled by EvenMoreFish.
+custom-commands:
+  rod-shop: fishing
+  stats: fishstats
+  sellfish: sellfish

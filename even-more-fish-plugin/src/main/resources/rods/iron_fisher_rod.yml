@@ -15,7 +15,7 @@ bite-speed-bonus: 10
 resistance-reduction: 4.0
 item:
   material: FISHING_ROD
-  displayname: <gray>Iron Fisher Rod
+  displayname: <bold><gray>Iron Fisher Rod
   glowing: false
   unbreakable: true
   lore:

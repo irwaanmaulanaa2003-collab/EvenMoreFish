@@ -9,6 +9,7 @@ import com.oheers.fish.events.FishInteractEvent;
 import com.oheers.fish.events.JoinChecker;
 import com.oheers.fish.fishing.EMFFishListener;
 import com.oheers.fish.fishing.processors.FishingProcessor;
+import com.oheers.fish.fishing.rods.FishingCommandListener;
 import com.oheers.fish.fishing.processors.HuntingProcessor;
 import com.oheers.fish.recipe.RecipeListener;
 import com.oheers.fish.update.UpdateNotify;
@@ -35,6 +36,7 @@ public class EventManager {
         // Always-registered listeners
         pm.registerEvents(new JoinChecker(), plugin);
         pm.registerEvents(new FishingProcessor(), plugin);
+        pm.registerEvents(new FishingCommandListener(), plugin);
         pm.registerEvents(new HuntingProcessor(), plugin);
         pm.registerEvents(new SkullSaver(), plugin);
         pm.registerEvents(new UpdateNotify(), plugin);
