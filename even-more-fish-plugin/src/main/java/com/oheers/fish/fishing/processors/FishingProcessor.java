@@ -322,8 +322,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         session.fishProgress = 0.0D;
         session.lastPullMillis = System.currentTimeMillis();
         playMinigameSound(player, "go", "ENTITY_PLAYER_LEVELUP", 1.0F);
-        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Shift</yellow> to reel the fish in.</white>", Map.of());
-        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Shift</yellow> now</white>");
+        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Sneak</yellow> to reel the fish in.</white>", Map.of());
+        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Sneak</yellow> now</white>");
         sendProgressMessage(player, session);
         scheduleEscapeCheck(uuid, session);
         scheduleProgressDisplay(uuid, session);
@@ -506,25 +506,41 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         int progress = Math.max(0, Math.min(needed, session.progress));
         int pullPercent = (int) Math.round((progress * 100.0D) / needed);
         int fishPercent = (int) Math.round((Math.max(0.0D, Math.min(needed, session.fishProgress)) * 100.0D) / needed);
-        sendMinigameMessage(player, "progress", "<aqua>R</aqua><white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>F</red><white>{fish_progress}%</white> {fish_bar}", Map.of(
-            "{progress}", String.valueOf(pullPercent),
+        sendMinigameMessage(player, "progress", "<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar}", Map.of(
+            "{rarity}", getRarityLabel(session),
             "{bar}", getProgressBar(pullPercent, "<green>"),
-            "{fish_progress}", String.valueOf(fishPercent),
             "{fish_bar}", getProgressBar(fishPercent, "<red>")
         ));
     }
 
+    private @NotNull String getRarityLabel(@NotNull MinigameSession session) {
+        String rarityId = session.fish.getRarity().getId();
+        String color = switch (rarityId.toLowerCase(java.util.Locale.ROOT)) {
+            case "junk" -> "<gray>";
+            case "common" -> "<green>";
+            case "rare" -> "<aqua>";
+            case "epic" -> "<light_purple>";
+            case "legendary" -> "<gold>";
+            case "mythic" -> "<dark_purple>";
+            case "divine" -> "<yellow>";
+            default -> "<white>";
+        };
+        return color + rarityId.toUpperCase(java.util.Locale.ROOT);
+    }
+
     private @NotNull String getProgressBar(int percent, @NotNull String fillColor) {
-        int totalBars = 5;
-        int filled = Math.max(0, Math.min(totalBars, (int) Math.round(percent / 20.0D)));
-        StringBuilder builder = new StringBuilder(fillColor);
+        int totalBars = 7;
+        int filled = Math.max(0, Math.min(totalBars, (int) Math.round(percent / (100.0D / totalBars))));
+        StringBuilder builder = new StringBuilder("<dark_gray>[");
+        builder.append(fillColor);
         for (int i = 0; i < filled; i++) {
-            builder.append('▰');
+            builder.append('|');
         }
-        builder.append("<dark_gray>");
+        builder.append("<gray>");
         for (int i = filled; i < totalBars; i++) {
-            builder.append('▱');
+            builder.append('|');
         }
+        builder.append("<dark_gray>]");
         return builder.toString();
     }
 

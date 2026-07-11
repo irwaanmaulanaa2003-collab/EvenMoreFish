@@ -29,8 +29,8 @@ fishing:
   # Should custom rods be required?
   require-custom-rod: true
   # If require-custom-rod is true, should vanilla rods be blocked from normal fishing too?
-  block-vanilla-rod-when-custom-required: true
-  # Should the custom right-click + shift fishing minigame be used?
+  block-vanilla-rod-when-custom-required: false
+  # Should the custom right-click + sneak fishing minigame be used?
   custom-minigame-enabled: true
   # Should the plugin only override fish, keeping treasure like enchanted books?
   only-fish: false
@@ -44,14 +44,14 @@ fishing:
 
 
 # Custom fishing minigame configuration.
-# Flow: fish bites -> right click to hook -> spam shift to pull.
+# Flow: fish bites -> right click to hook -> spam sneak to pull.
 custom-fishing-minigame:
   enabled: true
   # After the fish bites, the player has this many seconds to right click/reel.
   hook-time-seconds: 3
-  # After the player hooks the fish, show READY and count down before Shift pulling starts.
+  # After the player hooks the fish, show READY and count down before Sneak pulling starts.
   ready-delay-seconds: 3
-  # Once pulling starts, the fish escapes if the player does not Shift again within this time.
+  # Once pulling starts, the fish escapes if the player does not Sneak again within this time.
   escape-time-seconds: 5
   progress-needed: 100
   # If the player stops pulling, progress starts decreasing after this delay.
@@ -62,29 +62,30 @@ custom-fishing-minigame:
   # Fish race bar. While the player reels in, the fish also builds escape progress.
   # If the fish bar reaches 100% before the player reel bar, the fish escapes.
   fish-escape:
-    # Every successful Shift lowers the fish escape bar by this amount.
-    pull-reduction: 0.5
+    # Every successful Sneak lowers the fish escape bar by this amount.
+    # Lower value means the fish keeps more tension, so the fight feels stronger.
+    pull-reduction: 0.25
     Junk:
-      gain: 0.9
-      resistance-gain: 1.0
-    Common:
       gain: 1.4
       resistance-gain: 1.8
+    Common:
+      gain: 2.1
+      resistance-gain: 2.8
     Rare:
-      gain: 1.8
-      resistance-gain: 2.6
+      gain: 2.9
+      resistance-gain: 4.0
     Epic:
-      gain: 2.4
-      resistance-gain: 3.6
+      gain: 3.8
+      resistance-gain: 5.4
     Legendary:
-      gain: 3.1
-      resistance-gain: 5.0
+      gain: 5.0
+      resistance-gain: 7.0
     Mythic:
-      gain: 3.9
-      resistance-gain: 6.5
+      gain: 6.3
+      resistance-gain: 9.0
     Divine:
-      gain: 4.8
-      resistance-gain: 8.0
+      gain: 7.8
+      resistance-gain: 11.0
   bobber-pull-strength: 0.18
   sounds:
     enabled: true
@@ -107,11 +108,11 @@ custom-fishing-minigame:
     ready-countdown: '<green>Ready.</green> <white>Pulling starts in <aqua>{time}</aqua>...</white>'
     ready-countdown-title: '<aqua>{time}</aqua>'
     ready-countdown-subtitle: '<white>Hold steady. Do not pull yet.</white>'
-    go: '<green>GO!</green> <white>Spam <yellow>Shift</yellow> to reel the fish in.</white>'
+    go: '<green>GO!</green> <white>Spam <yellow>Sneak</yellow> to reel the fish in.</white>'
     go-title: '<green>GO!</green>'
-    go-subtitle: '<white>Spam <yellow>Shift</yellow> now</white>'
+    go-subtitle: '<white>Spam <yellow>Sneak</yellow> now</white>'
     wait-ready: '<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>'
-    progress: '<aqua>R</aqua><white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>F</red><white>{fish_progress}%</white> {fish_bar}'
+    progress: '<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar}'
     resistance: '<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>'
     escaped: '<red>The fish broke free.</red>'
     fish-win: '<red>The fish overpowered your line.</red>'
@@ -124,23 +125,23 @@ custom-fishing-minigame:
       chance: 2.0
       progress-loss: 2
     Common:
-      chance: 5.0
-      progress-loss: 3
-    Rare:
       chance: 8.0
-      progress-loss: 5
-    Epic:
+      progress-loss: 4
+    Rare:
       chance: 12.0
-      progress-loss: 7
+      progress-loss: 6
+    Epic:
+      chance: 17.0
+      progress-loss: 8
     Legendary:
-      chance: 18.0
-      progress-loss: 10
+      chance: 24.0
+      progress-loss: 12
     Mythic:
-      chance: 23.0
-      progress-loss: 13
-    Divine:
       chance: 30.0
-      progress-loss: 16
+      progress-loss: 15
+    Divine:
+      chance: 38.0
+      progress-loss: 18
 
 # Built-in custom rod shop.
 # Open from /emf GUI, then click Rod Shop.
