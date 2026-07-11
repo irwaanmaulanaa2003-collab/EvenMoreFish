@@ -286,6 +286,54 @@ public class MainConfig extends ConfigBase {
         return getConfig().getDouble("custom-fishing-minigame.struggle-burst." + rarityId + ".tension-gain", 4.0D);
     }
 
+    public boolean isMinigameTimingBossBarEnabled() {
+        return getConfig().getBoolean("custom-fishing-minigame.timing.bossbar-enabled", true);
+    }
+
+    public int getMinigameTimingUpdateIntervalTicks() {
+        return getConfig().getInt("custom-fishing-minigame.timing.update-interval-ticks", 2);
+    }
+
+    public int getMinigameTimingHitCooldownMillis() {
+        return getConfig().getInt("custom-fishing-minigame.timing.hit-cooldown-ms", 180);
+    }
+
+    public double getMinigameTimingSpeed(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.timing." + rarityId + ".speed", 0.045D);
+    }
+
+    public double getMinigameTimingTargetSize(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.timing." + rarityId + ".target-size", 0.22D);
+    }
+
+    public double getMinigameTimingPerfectSize(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.timing." + rarityId + ".perfect-size", 0.08D);
+    }
+
+    public int getMinigameTimingPerfectCatchGain() {
+        return getConfig().getInt("custom-fishing-minigame.timing.rewards.perfect.catch-gain", 18);
+    }
+
+    public int getMinigameTimingGoodCatchGain() {
+        return getConfig().getInt("custom-fishing-minigame.timing.rewards.good.catch-gain", 10);
+    }
+
+    public int getMinigameTimingMissCatchLoss() {
+        return getConfig().getInt("custom-fishing-minigame.timing.rewards.miss.catch-loss", 5);
+    }
+
+    public double getMinigameTimingPerfectTensionReduction() {
+        return getConfig().getDouble("custom-fishing-minigame.timing.rewards.perfect.tension-reduction", 8.0D);
+    }
+
+    public double getMinigameTimingGoodTensionReduction() {
+        return getConfig().getDouble("custom-fishing-minigame.timing.rewards.good.tension-reduction", 4.0D);
+    }
+
+    public double getMinigameTimingMissTensionGain() {
+        return getConfig().getDouble("custom-fishing-minigame.timing.rewards.miss.tension-gain", 12.0D);
+    }
+
     public String getMinigameMessage(@NotNull String key, @NotNull String fallback) {
         return getConfig().getString("custom-fishing-minigame.messages." + key, fallback);
     }

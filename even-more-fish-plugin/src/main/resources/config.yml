@@ -49,9 +49,9 @@ custom-fishing-minigame:
   enabled: true
   # After the fish bites, the player has this many seconds to right click/reel.
   hook-time-seconds: 3
-  # After the player hooks the fish, show READY and count down before Sneak pulling starts.
+  # After the player hooks the fish, show READY and count down before the timing game starts.
   ready-delay-seconds: 3
-  # Once pulling starts, the fish escapes if the player does not Sneak again within this time.
+  # Once the timing game starts, the fish escapes if the player does not click again within this time.
   escape-time-seconds: 5
   progress-needed: 100
   # If the player stops pulling, progress starts decreasing after this delay.
@@ -59,10 +59,54 @@ custom-fishing-minigame:
     delay-ms: 1200
     interval-ticks: 10
     amount: 2
+  # Timing battle. After GO, a bossbar marker moves left/right.
+  # Player must LEFT CLICK when the marker enters the green zone.
+  timing:
+    bossbar-enabled: true
+    update-interval-ticks: 2
+    hit-cooldown-ms: 180
+    rewards:
+      perfect:
+        catch-gain: 18
+        tension-reduction: 8.0
+      good:
+        catch-gain: 10
+        tension-reduction: 4.0
+      miss:
+        catch-loss: 5
+        tension-gain: 12.0
+    Junk:
+      speed: 0.030
+      target-size: 0.34
+      perfect-size: 0.12
+    Common:
+      speed: 0.034
+      target-size: 0.30
+      perfect-size: 0.10
+    Rare:
+      speed: 0.040
+      target-size: 0.26
+      perfect-size: 0.085
+    Epic:
+      speed: 0.047
+      target-size: 0.22
+      perfect-size: 0.070
+    Legendary:
+      speed: 0.055
+      target-size: 0.18
+      perfect-size: 0.060
+    Mythic:
+      speed: 0.063
+      target-size: 0.15
+      perfect-size: 0.050
+    Divine:
+      speed: 0.072
+      target-size: 0.12
+      perfect-size: 0.040
   # Fish race bar. While the player reels in, the fish also builds escape progress.
   # If the fish bar reaches 100% before the player reel bar, the fish escapes.
   fish-escape:
-    # Every successful Sneak lowers the fish escape bar by this amount.
+    # Every successful timing hit lowers the fish escape bar by this amount.
     # Lower value means the fish keeps more tension, so the fight feels stronger.
     pull-reduction: 0.15
     Junk:
@@ -138,6 +182,8 @@ custom-fishing-minigame:
     countdown: BLOCK_NOTE_BLOCK_HAT
     go: ENTITY_PLAYER_LEVELUP
     pull: ENTITY_EXPERIENCE_ORB_PICKUP
+    perfect: BLOCK_NOTE_BLOCK_BELL
+    miss: BLOCK_NOTE_BLOCK_BASS
     resistance: ENTITY_FISHING_BOBBER_SPLASH
     struggle: ENTITY_FISHING_BOBBER_SPLASH
     escaped: ENTITY_ITEM_BREAK
@@ -152,11 +198,15 @@ custom-fishing-minigame:
     ready-countdown: '<green>Ready.</green> <white>Pulling starts in <aqua>{time}</aqua>...</white>'
     ready-countdown-title: '<aqua>{time}</aqua>'
     ready-countdown-subtitle: '<white>Hold steady. Do not pull yet.</white>'
-    go: '<green>GO!</green> <white>Spam <yellow>Sneak</yellow> to reel the fish in.</white>'
+    go: '<green>GO!</green> <white>Left Click when the marker enters the green zone.</white>'
     go-title: '<green>GO!</green>'
-    go-subtitle: '<white>Spam <yellow>Sneak</yellow> now</white>'
-    wait-ready: '<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>'
-    progress: '<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar}'
+    go-subtitle: '<white>Left Click inside the timing zone</white>'
+    wait-ready: '<yellow>Wait for the <green>GO</green> signal before clicking.</yellow>'
+    timing-use-click: '<yellow>Use <white>Left Click</white> when the marker enters the zone.</yellow>'
+    perfect-hit: '<green>PERFECT HIT!</green> <white>The line holds strong.</white>'
+    good-hit: '<aqua>GOOD HIT!</aqua> <white>Keep the rhythm.</white>'
+    miss-hit: '<red>MISSED!</red> <gray>The fish pulls harder.</gray>'
+    progress: '<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar} {state}'
     resistance: '<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>'
     struggle: '<red>STRUGGLE!</red> <gray>The fish surges against the line.</gray>'
     escaped: '<red>The fish broke free.</red>'

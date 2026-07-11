@@ -15,6 +15,7 @@ import com.oheers.fish.fishing.rods.RodUpgradeManager;
 import com.oheers.fish.messages.ConfigMessage;
 import com.oheers.fish.messages.EMFSingleMessage;
 import com.oheers.fish.permissions.UserPerms;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -29,6 +30,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -198,19 +200,41 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return;
         }
         Action action = event.getAction();
-        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+        Player player = event.getPlayer();
+        MinigameSession session = sessions.get(player.getUniqueId());
+        if (session == null) {
+            return;
+        }
+
+        if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+            if (session.state != MinigameState.WAITING_HOOK) {
+                return;
+            }
+            if (!canUseHeldCustomRod(player)) {
+                return;
+            }
+            event.setCancelled(true);
+            startReadyCountdown(player, session);
+            return;
+        }
+
+        if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
+            event.setCancelled(true);
+            handleTimingClick(player, session);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onTimingSwing(@NotNull PlayerAnimationEvent event) {
+        if (!MainConfig.getInstance().isCustomMinigameEnabled()) {
             return;
         }
         Player player = event.getPlayer();
         MinigameSession session = sessions.get(player.getUniqueId());
-        if (session == null || session.state != MinigameState.WAITING_HOOK) {
+        if (session == null || session.state != MinigameState.PULLING) {
             return;
         }
-        if (!canUseHeldCustomRod(player)) {
-            return;
-        }
-        event.setCancelled(true);
-        startReadyCountdown(player, session);
+        handleTimingClick(player, session);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -224,36 +248,20 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return;
         }
         if (session.state == MinigameState.READY_COUNTDOWN) {
-            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>", Map.of());
+            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for the <green>GO</green> signal before clicking.</yellow>", Map.of());
             return;
         }
-        if (session.state != MinigameState.PULLING) {
-            return;
+        if (session.state == MinigameState.PULLING) {
+            sendMinigameMessage(player, "timing-use-click", "<yellow>Use <white>Left Click</white> when the marker enters the zone.</yellow>", Map.of());
         }
-        if (session.hook == null || !session.hook.isValid()) {
-            failSession(player, session);
-            return;
-        }
-
-        session.lastPullMillis = System.currentTimeMillis();
-        int pullPower = Math.max(1, session.rod == null ? 3 : session.rod.getPullPower());
-        session.progress = Math.min(MainConfig.getInstance().getMinigameProgressNeeded(), session.progress + pullPower);
-        reduceFishPressureOnPull(session);
-        playMinigameSound(player, "pull", "ENTITY_EXPERIENCE_ORB_PICKUP", 1.1F);
-        applyResistance(player, session);
-        pullBobberTowardPlayer(player, session);
-        sendProgressMessage(player, session);
-
-        if (session.progress >= MainConfig.getInstance().getMinigameProgressNeeded()) {
-            completeSession(player, session);
-            return;
-        }
-        scheduleEscapeCheck(player.getUniqueId(), session);
     }
 
     @EventHandler
     public void onQuit(@NotNull PlayerQuitEvent event) {
-        sessions.remove(event.getPlayer().getUniqueId());
+        MinigameSession session = sessions.remove(event.getPlayer().getUniqueId());
+        if (session != null) {
+            clearTimingBossBar(event.getPlayer(), session);
+        }
     }
 
     private boolean canStartCustomFishing(@NotNull Player player, @Nullable ItemStack rod, boolean notify) {
@@ -343,16 +351,17 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         freezeVanillaBites(session.hook);
         session.lastPullMillis = System.currentTimeMillis();
         scheduleNextStruggle(session);
+        setupTimingGame(player, session);
         playMinigameSound(player, "go", "ENTITY_PLAYER_LEVELUP", 1.0F);
-        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Sneak</yellow> to reel the fish in.</white>", Map.of());
-        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Sneak</yellow> now</white>");
+        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Left Click when the marker enters the target zone.</white>", Map.of());
+        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Left Click inside the timing zone</white>");
         sendProgressMessage(player, session);
         scheduleEscapeCheck(uuid, session);
         scheduleProgressDisplay(uuid, session);
     }
 
     private void scheduleProgressDisplay(@NotNull UUID uuid, @NotNull MinigameSession expected) {
-        int interval = Math.max(1, MainConfig.getInstance().getMinigameProgressDecayIntervalTicks());
+        int interval = Math.max(1, MainConfig.getInstance().getMinigameTimingUpdateIntervalTicks());
         EvenMoreFish.getScheduler().runTaskLater(() -> {
             MinigameSession session = sessions.get(uuid);
             if (session != expected || session.state != MinigameState.PULLING) {
@@ -363,6 +372,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
                 sessions.remove(uuid);
                 return;
             }
+            updateTimingMarker(player, session);
             applyIdleProgressDecay(player, session);
             if (applyStruggleBurst(player, session)) {
                 return;
@@ -392,6 +402,9 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
         Player player = plugin.getServer().getPlayer(uuid);
         sessions.remove(uuid);
+        if (player != null) {
+            clearTimingBossBar(player, session);
+        }
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
@@ -443,9 +456,15 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private void applyIdleProgressDecay(@NotNull Player player, @NotNull MinigameSession session) {
         int delayMillis = Math.max(0, MainConfig.getInstance().getMinigameProgressDecayDelayMillis());
-        if (System.currentTimeMillis() - session.lastPullMillis < delayMillis) {
+        long now = System.currentTimeMillis();
+        if (now - session.lastPullMillis < delayMillis) {
             return;
         }
+        int decayIntervalMillis = Math.max(1, MainConfig.getInstance().getMinigameProgressDecayIntervalTicks()) * 50;
+        if (now - session.lastProgressDecayMillis < decayIntervalMillis) {
+            return;
+        }
+        session.lastProgressDecayMillis = now;
         int decay = Math.max(0, MainConfig.getInstance().getMinigameProgressDecayAmount());
         if (decay <= 0 || session.progress <= 0) {
             return;
@@ -456,6 +475,9 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private boolean applyFishEscapePressure(@NotNull Player player, @NotNull MinigameSession session) {
         double gain = Math.max(0.0D, MainConfig.getInstance().getMinigameFishEscapeGain(session.fish.getRarity().getId()));
+        // Fish escape gain was balanced around the old 10-tick loop. Scale it when the
+        // timing bar is updated more frequently so tension does not become unfair.
+        gain *= Math.max(1, MainConfig.getInstance().getMinigameTimingUpdateIntervalTicks()) / 10.0D;
         if (isStruggling(session)) {
             gain *= Math.max(1.0D, MainConfig.getInstance().getMinigameStruggleTensionMultiplier());
         }
@@ -508,6 +530,185 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return true;
         }
         return false;
+    }
+
+    private void setupTimingGame(@NotNull Player player, @NotNull MinigameSession session) {
+        randomizeTimingTarget(session);
+        session.timingPosition = plugin.getRandom().nextDouble();
+        session.timingDirection = plugin.getRandom().nextBoolean() ? 1.0D : -1.0D;
+        if (MainConfig.getInstance().isMinigameTimingBossBarEnabled()) {
+            BossBar.Color color = getTimingBossBarColor(session);
+            session.timingBossBar = BossBar.bossBar(
+                EMFSingleMessage.fromString(buildTimingBossBarText(session)).getComponentMessage(player),
+                (float) Math.max(0.0D, Math.min(1.0D, session.timingPosition)),
+                color,
+                BossBar.Overlay.NOTCHED_20
+            );
+            player.showBossBar(session.timingBossBar);
+        }
+    }
+
+    private void updateTimingMarker(@NotNull Player player, @NotNull MinigameSession session) {
+        double speed = Math.max(0.002D, MainConfig.getInstance().getMinigameTimingSpeed(session.fish.getRarity().getId()));
+        if (session.rod != null) {
+            // High tier rods make the timing marker a little easier to control.
+            speed *= Math.max(0.60D, 1.0D - (session.rod.getResistanceReduction() / 160.0D));
+        }
+        if (isStruggling(session)) {
+            speed *= 1.25D;
+        }
+        session.timingPosition += speed * session.timingDirection;
+        if (session.timingPosition >= 1.0D) {
+            session.timingPosition = 1.0D;
+            session.timingDirection = -1.0D;
+        } else if (session.timingPosition <= 0.0D) {
+            session.timingPosition = 0.0D;
+            session.timingDirection = 1.0D;
+        }
+        updateTimingBossBar(player, session);
+    }
+
+    private void handleTimingClick(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.state == MinigameState.READY_COUNTDOWN) {
+            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for the <green>GO</green> signal before clicking.</yellow>", Map.of());
+            return;
+        }
+        if (session.state != MinigameState.PULLING) {
+            return;
+        }
+        if (session.hook == null || !session.hook.isValid()) {
+            failSession(player, session);
+            return;
+        }
+        long now = System.currentTimeMillis();
+        if (now - session.lastTimingHitMillis < MainConfig.getInstance().getMinigameTimingHitCooldownMillis()) {
+            return;
+        }
+        session.lastTimingHitMillis = now;
+        session.lastPullMillis = now;
+
+        double marker = session.timingPosition;
+        double distance = Math.abs(marker - session.timingTargetCenter);
+        double targetRadius = getTimingTargetSize(session) / 2.0D;
+        double perfectRadius = getTimingPerfectSize(session) / 2.0D;
+        boolean perfect = distance <= perfectRadius;
+        boolean good = distance <= targetRadius;
+
+        if (perfect) {
+            applyTimingSuccess(player, session, true);
+        } else if (good) {
+            applyTimingSuccess(player, session, false);
+        } else {
+            applyTimingMiss(player, session);
+        }
+
+        randomizeTimingTarget(session);
+        syncBobberToProgress(player, session);
+        updateTimingBossBar(player, session);
+        sendProgressMessage(player, session);
+
+        if (session.progress >= MainConfig.getInstance().getMinigameProgressNeeded()) {
+            completeSession(player, session);
+            return;
+        }
+        if (session.fishProgress >= MainConfig.getInstance().getMinigameProgressNeeded()) {
+            failFishRace(player, session);
+            return;
+        }
+        scheduleEscapeCheck(player.getUniqueId(), session);
+    }
+
+    private void applyTimingSuccess(@NotNull Player player, @NotNull MinigameSession session, boolean perfect) {
+        int gain = perfect ? MainConfig.getInstance().getMinigameTimingPerfectCatchGain() : MainConfig.getInstance().getMinigameTimingGoodCatchGain();
+        if (session.rod != null) {
+            gain += Math.max(0, session.rod.getPullPower() / 2);
+        }
+        double tensionReduction = perfect ? MainConfig.getInstance().getMinigameTimingPerfectTensionReduction() : MainConfig.getInstance().getMinigameTimingGoodTensionReduction();
+        int needed = Math.max(1, MainConfig.getInstance().getMinigameProgressNeeded());
+        session.progress = Math.min(needed, session.progress + Math.max(1, gain));
+        session.fishProgress = Math.max(0.0D, session.fishProgress - Math.max(0.0D, tensionReduction));
+        playMinigameSound(player, perfect ? "perfect" : "pull", perfect ? "BLOCK_NOTE_BLOCK_BELL" : "ENTITY_EXPERIENCE_ORB_PICKUP", perfect ? 1.45F : 1.15F);
+        sendMinigameMessage(player, perfect ? "perfect-hit" : "good-hit", perfect ? "<green>PERFECT HIT!</green> <white>The line holds strong.</white>" : "<aqua>GOOD HIT!</aqua> <white>Keep the rhythm.</white>", Map.of());
+        applyResistance(player, session);
+    }
+
+    private void applyTimingMiss(@NotNull Player player, @NotNull MinigameSession session) {
+        int loss = Math.max(0, MainConfig.getInstance().getMinigameTimingMissCatchLoss());
+        double tensionGain = Math.max(0.0D, MainConfig.getInstance().getMinigameTimingMissTensionGain());
+        session.progress = Math.max(0, session.progress - loss);
+        session.fishProgress = Math.min(MainConfig.getInstance().getMinigameProgressNeeded(), session.fishProgress + tensionGain);
+        session.strugglingUntilMillis = Math.max(session.strugglingUntilMillis, System.currentTimeMillis() + 700L);
+        pushBobberAway(player, session);
+        playMinigameSound(player, "miss", "BLOCK_NOTE_BLOCK_BASS", 0.7F);
+        sendMinigameMessage(player, "miss-hit", "<red>MISSED!</red> <gray>The fish pulls harder.</gray>", Map.of());
+    }
+
+    private void randomizeTimingTarget(@NotNull MinigameSession session) {
+        double size = getTimingTargetSize(session);
+        double min = size / 2.0D;
+        double max = 1.0D - min;
+        if (max <= min) {
+            session.timingTargetCenter = 0.5D;
+            return;
+        }
+        session.timingTargetCenter = min + (plugin.getRandom().nextDouble() * (max - min));
+    }
+
+    private double getTimingTargetSize(@NotNull MinigameSession session) {
+        double size = MainConfig.getInstance().getMinigameTimingTargetSize(session.fish.getRarity().getId());
+        if (session.rod != null) {
+            size += session.rod.getPullPower() * 0.0025D;
+        }
+        return Math.max(0.06D, Math.min(0.45D, size));
+    }
+
+    private double getTimingPerfectSize(@NotNull MinigameSession session) {
+        return Math.max(0.02D, Math.min(getTimingTargetSize(session), MainConfig.getInstance().getMinigameTimingPerfectSize(session.fish.getRarity().getId())));
+    }
+
+    private void updateTimingBossBar(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.timingBossBar == null) {
+            return;
+        }
+        session.timingBossBar.progress((float) Math.max(0.0D, Math.min(1.0D, session.timingPosition)));
+        session.timingBossBar.name(EMFSingleMessage.fromString(buildTimingBossBarText(session)).getComponentMessage(player));
+        session.timingBossBar.color(getTimingBossBarColor(session));
+    }
+
+    private @NotNull BossBar.Color getTimingBossBarColor(@NotNull MinigameSession session) {
+        String rarityId = session.fish.getRarity().getId().toLowerCase(java.util.Locale.ROOT);
+        return switch (rarityId) {
+            case "rare" -> BossBar.Color.BLUE;
+            case "epic", "mythic" -> BossBar.Color.PURPLE;
+            case "legendary", "divine" -> BossBar.Color.YELLOW;
+            default -> BossBar.Color.GREEN;
+        };
+    }
+
+    private @NotNull String buildTimingBossBarText(@NotNull MinigameSession session) {
+        int slots = 15;
+        int markerSlot = Math.max(0, Math.min(slots - 1, (int) Math.round(session.timingPosition * (slots - 1))));
+        double targetSize = getTimingTargetSize(session);
+        int targetStart = Math.max(0, (int) Math.floor((session.timingTargetCenter - (targetSize / 2.0D)) * slots));
+        int targetEnd = Math.min(slots - 1, (int) Math.ceil((session.timingTargetCenter + (targetSize / 2.0D)) * slots) - 1);
+        StringBuilder bar = new StringBuilder();
+        for (int i = 0; i < slots; i++) {
+            if (i == markerSlot) {
+                bar.append("<white>|</white>");
+            } else if (i >= targetStart && i <= targetEnd) {
+                bar.append("<green>█</green>");
+            } else {
+                bar.append("<dark_gray>█</dark_gray>");
+            }
+        }
+        return "<gray>[</gray> " + getRarityLabel(session) + " <gray>]</gray> <white>LEFT CLICK</white> <gray>" + bar + "</gray>";
+    }
+
+    private void clearTimingBossBar(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.timingBossBar != null) {
+            player.hideBossBar(session.timingBossBar);
+            session.timingBossBar = null;
+        }
     }
 
     private void scheduleNextStruggle(@NotNull MinigameSession session) {
@@ -595,6 +796,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private void completeSession(@NotNull Player player, @NotNull MinigameSession session) {
         sessions.remove(player.getUniqueId());
+        clearTimingBossBar(player, session);
         ItemStack fish = finalizeCaughtFish(player, session.hook.getLocation(), session.fish);
         if (fish == null || fish.isEmpty()) {
             return;
@@ -614,6 +816,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private void failSession(@NotNull Player player, @NotNull MinigameSession session) {
         sessions.remove(player.getUniqueId());
+        clearTimingBossBar(player, session);
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
@@ -623,6 +826,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private void failFishRace(@NotNull Player player, @NotNull MinigameSession session) {
         sessions.remove(player.getUniqueId());
+        clearTimingBossBar(player, session);
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
@@ -804,7 +1008,13 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         private long lastPullMillis = System.currentTimeMillis();
         private long nextStruggleAtMillis = 0L;
         private long strugglingUntilMillis = 0L;
+        private long lastProgressDecayMillis = 0L;
+        private long lastTimingHitMillis = 0L;
         private double startDistance = -1.0D;
+        private double timingPosition = 0.0D;
+        private double timingDirection = 1.0D;
+        private double timingTargetCenter = 0.5D;
+        private @Nullable BossBar timingBossBar = null;
 
         private MinigameSession(@NotNull FishHook hook, @NotNull Fish fish, @Nullable CustomRod rod) {
             this.hook = hook;
