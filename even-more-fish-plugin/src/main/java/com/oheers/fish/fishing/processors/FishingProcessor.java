@@ -506,24 +506,24 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         int progress = Math.max(0, Math.min(needed, session.progress));
         int pullPercent = (int) Math.round((progress * 100.0D) / needed);
         int fishPercent = (int) Math.round((Math.max(0.0D, Math.min(needed, session.fishProgress)) * 100.0D) / needed);
-        sendMinigameMessage(player, "progress", "<aqua>Reel</aqua> <white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>Fish</red> <white>{fish_progress}%</white> {fish_bar} <dark_gray>|</dark_gray> <gray>{fish}</gray>", Map.of(
+        sendMinigameMessage(player, "progress", "<aqua>R</aqua><white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>F</red><white>{fish_progress}%</white> {fish_bar}", Map.of(
             "{progress}", String.valueOf(pullPercent),
             "{bar}", getProgressBar(pullPercent, "<green>"),
             "{fish_progress}", String.valueOf(fishPercent),
-            "{fish_bar}", getProgressBar(fishPercent, "<red>"),
-            "{fish}", session.fish.getDisplayName().getPlainTextMessage(player)
+            "{fish_bar}", getProgressBar(fishPercent, "<red>")
         ));
     }
 
     private @NotNull String getProgressBar(int percent, @NotNull String fillColor) {
-        int filled = Math.max(0, Math.min(10, percent / 10));
+        int totalBars = 5;
+        int filled = Math.max(0, Math.min(totalBars, (int) Math.round(percent / 20.0D)));
         StringBuilder builder = new StringBuilder(fillColor);
         for (int i = 0; i < filled; i++) {
-            builder.append('█');
+            builder.append('▰');
         }
         builder.append("<dark_gray>");
-        for (int i = filled; i < 10; i++) {
-            builder.append('█');
+        for (int i = filled; i < totalBars; i++) {
+            builder.append('▱');
         }
         return builder.toString();
     }

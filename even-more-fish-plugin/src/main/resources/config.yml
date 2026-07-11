@@ -63,28 +63,28 @@ custom-fishing-minigame:
   # If the fish bar reaches 100% before the player reel bar, the fish escapes.
   fish-escape:
     # Every successful Shift lowers the fish escape bar by this amount.
-    pull-reduction: 1.0
+    pull-reduction: 0.5
     Junk:
-      gain: 0.5
-      resistance-gain: 0.5
-    Common:
-      gain: 0.8
+      gain: 0.9
       resistance-gain: 1.0
-    Rare:
-      gain: 1.0
-      resistance-gain: 1.5
-    Epic:
+    Common:
       gain: 1.4
-      resistance-gain: 2.0
-    Legendary:
+      resistance-gain: 1.8
+    Rare:
       gain: 1.8
-      resistance-gain: 3.0
-    Mythic:
-      gain: 2.3
-      resistance-gain: 4.0
-    Divine:
-      gain: 2.8
+      resistance-gain: 2.6
+    Epic:
+      gain: 2.4
+      resistance-gain: 3.6
+    Legendary:
+      gain: 3.1
       resistance-gain: 5.0
+    Mythic:
+      gain: 3.9
+      resistance-gain: 6.5
+    Divine:
+      gain: 4.8
+      resistance-gain: 8.0
   bobber-pull-strength: 0.18
   sounds:
     enabled: true
@@ -111,7 +111,7 @@ custom-fishing-minigame:
     go-title: '<green>GO!</green>'
     go-subtitle: '<white>Spam <yellow>Shift</yellow> now</white>'
     wait-ready: '<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>'
-    progress: '<aqua>Reel</aqua> <white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>Fish</red> <white>{fish_progress}%</white> {fish_bar} <dark_gray>|</dark_gray> <gray>{fish}</gray>'
+    progress: '<aqua>R</aqua><white>{progress}%</white> {bar} <dark_gray>|</dark_gray> <red>F</red><white>{fish_progress}%</white> {fish_bar}'
     resistance: '<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>'
     escaped: '<red>The fish broke free.</red>'
     fish-win: '<red>The fish overpowered your line.</red>'
