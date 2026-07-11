@@ -332,6 +332,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         session.progress = 0;
         session.fishProgress = 0.0D;
         session.lastPullMillis = System.currentTimeMillis();
+        scheduleNextStruggle(session);
         playMinigameSound(player, "go", "ENTITY_PLAYER_LEVELUP", 1.0F);
         sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Sneak</yellow> to reel the fish in.</white>", Map.of());
         sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Sneak</yellow> now</white>");
@@ -353,6 +354,9 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
                 return;
             }
             applyIdleProgressDecay(player, session);
+            if (applyStruggleBurst(player, session)) {
+                return;
+            }
             if (applyFishEscapePressure(player, session)) {
                 return;
             }
@@ -418,6 +422,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         int loss = MainConfig.getInstance().getMinigameResistanceLoss(rarityId);
         session.progress = Math.max(0, session.progress - loss);
         session.fishProgress = Math.min(MainConfig.getInstance().getMinigameProgressNeeded(), session.fishProgress + MainConfig.getInstance().getMinigameFishEscapeResistanceGain(rarityId));
+        session.strugglingUntilMillis = Math.max(session.strugglingUntilMillis, System.currentTimeMillis() + 900L);
         playMinigameSound(player, "resistance", "ENTITY_FISHING_BOBBER_SPLASH", 0.75F);
         pushBobberAway(player, session);
         sendMinigameMessage(player, "resistance", "<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>", Map.of(
@@ -440,6 +445,9 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private boolean applyFishEscapePressure(@NotNull Player player, @NotNull MinigameSession session) {
         double gain = Math.max(0.0D, MainConfig.getInstance().getMinigameFishEscapeGain(session.fish.getRarity().getId()));
+        if (isStruggling(session)) {
+            gain *= Math.max(1.0D, MainConfig.getInstance().getMinigameStruggleTensionMultiplier());
+        }
         if (gain <= 0.0D) {
             return false;
         }
@@ -449,6 +457,57 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return true;
         }
         return false;
+    }
+
+    private boolean applyStruggleBurst(@NotNull Player player, @NotNull MinigameSession session) {
+        if (!MainConfig.getInstance().isMinigameStruggleEnabled()) {
+            return false;
+        }
+        long now = System.currentTimeMillis();
+        if (session.nextStruggleAtMillis <= 0L) {
+            scheduleNextStruggle(session);
+            return false;
+        }
+        if (now < session.nextStruggleAtMillis) {
+            return false;
+        }
+
+        String rarityId = session.fish.getRarity().getId();
+        double chance = Math.max(0.0D, MainConfig.getInstance().getMinigameStruggleChance(rarityId));
+        if (session.rod != null) {
+            chance = Math.max(0.0D, chance - (session.rod.getResistanceReduction() * 0.5D));
+        }
+
+        scheduleNextStruggle(session);
+        if (plugin.getRandom().nextDouble() * 100.0D > chance) {
+            return false;
+        }
+
+        int loss = Math.max(0, MainConfig.getInstance().getMinigameStruggleProgressLoss(rarityId));
+        double tensionGain = Math.max(0.0D, MainConfig.getInstance().getMinigameStruggleTensionGain(rarityId));
+        int needed = Math.max(1, MainConfig.getInstance().getMinigameProgressNeeded());
+        session.progress = Math.max(0, session.progress - loss);
+        session.fishProgress = Math.min(needed, session.fishProgress + tensionGain);
+        session.strugglingUntilMillis = now + Math.max(500, MainConfig.getInstance().getMinigameStruggleDurationMillis());
+        pushBobberAway(player, session);
+        playMinigameSound(player, "struggle", "ENTITY_FISHING_BOBBER_SPLASH", 0.65F);
+        sendMinigameMessage(player, "struggle", "<red>STRUGGLE!</red> <gray>The fish surges against the line.</gray>", Map.of());
+        if (session.fishProgress >= needed) {
+            failFishRace(player, session);
+            return true;
+        }
+        return false;
+    }
+
+    private void scheduleNextStruggle(@NotNull MinigameSession session) {
+        int minTicks = Math.max(1, MainConfig.getInstance().getMinigameStruggleIntervalMinTicks());
+        int maxTicks = Math.max(minTicks, MainConfig.getInstance().getMinigameStruggleIntervalMaxTicks());
+        int extraTicks = maxTicks == minTicks ? 0 : plugin.getRandom().nextInt((maxTicks - minTicks) + 1);
+        session.nextStruggleAtMillis = System.currentTimeMillis() + ((long) (minTicks + extraTicks) * 50L);
+    }
+
+    private boolean isStruggling(@NotNull MinigameSession session) {
+        return session.strugglingUntilMillis > System.currentTimeMillis();
     }
 
     private void reduceFishPressureOnPull(@NotNull MinigameSession session) {
@@ -518,10 +577,11 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         int progress = Math.max(0, Math.min(needed, session.progress));
         int pullPercent = (int) Math.round((progress * 100.0D) / needed);
         int fishPercent = (int) Math.round((Math.max(0.0D, Math.min(needed, session.fishProgress)) * 100.0D) / needed);
-        sendMinigameMessage(player, "progress", "<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar}", Map.of(
+        sendMinigameMessage(player, "progress", "<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar} {state}", Map.of(
             "{rarity}", getRarityLabel(session),
             "{bar}", getProgressBar(pullPercent, "<green>"),
-            "{fish_bar}", getProgressBar(fishPercent, "<red>")
+            "{fish_bar}", getProgressBar(fishPercent, "<red>"),
+            "{state}", isStruggling(session) ? "<red>STRUGGLE!</red>" : ""
         ));
     }
 
@@ -683,6 +743,8 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         private int progress = 0;
         private double fishProgress = 0.0D;
         private long lastPullMillis = System.currentTimeMillis();
+        private long nextStruggleAtMillis = 0L;
+        private long strugglingUntilMillis = 0L;
 
         private MinigameSession(@NotNull FishHook hook, @NotNull Fish fish, @Nullable CustomRod rod) {
             this.hook = hook;

@@ -64,28 +64,64 @@ custom-fishing-minigame:
   fish-escape:
     # Every successful Sneak lowers the fish escape bar by this amount.
     # Lower value means the fish keeps more tension, so the fight feels stronger.
-    pull-reduction: 0.25
+    pull-reduction: 0.15
     Junk:
-      gain: 1.4
-      resistance-gain: 1.8
+      gain: 1.6
+      resistance-gain: 2.0
     Common:
-      gain: 2.1
-      resistance-gain: 2.8
+      gain: 2.8
+      resistance-gain: 3.6
     Rare:
-      gain: 2.9
-      resistance-gain: 4.0
-    Epic:
       gain: 3.8
-      resistance-gain: 5.4
-    Legendary:
+      resistance-gain: 5.2
+    Epic:
       gain: 5.0
-      resistance-gain: 7.0
+      resistance-gain: 7.2
+    Legendary:
+      gain: 6.4
+      resistance-gain: 9.5
     Mythic:
-      gain: 6.3
-      resistance-gain: 9.0
+      gain: 8.0
+      resistance-gain: 12.0
     Divine:
-      gain: 7.8
-      resistance-gain: 11.0
+      gain: 9.8
+      resistance-gain: 15.0
+  # Random fish struggle bursts make the fish feel like it is actively fighting back.
+  # During a burst, TENSION rises faster and CATCH can drop.
+  struggle-burst:
+    enabled: true
+    interval-min-ticks: 30
+    interval-max-ticks: 65
+    duration-ms: 1400
+    tension-multiplier: 1.85
+    Junk:
+      chance: 4.0
+      progress-loss: 1
+      tension-gain: 2.0
+    Common:
+      chance: 8.0
+      progress-loss: 3
+      tension-gain: 4.0
+    Rare:
+      chance: 12.0
+      progress-loss: 5
+      tension-gain: 6.0
+    Epic:
+      chance: 18.0
+      progress-loss: 7
+      tension-gain: 9.0
+    Legendary:
+      chance: 26.0
+      progress-loss: 10
+      tension-gain: 13.0
+    Mythic:
+      chance: 34.0
+      progress-loss: 13
+      tension-gain: 17.0
+    Divine:
+      chance: 42.0
+      progress-loss: 16
+      tension-gain: 22.0
   bobber-pull-strength: 0.18
   sounds:
     enabled: true
@@ -96,6 +132,7 @@ custom-fishing-minigame:
     go: ENTITY_PLAYER_LEVELUP
     pull: ENTITY_EXPERIENCE_ORB_PICKUP
     resistance: ENTITY_FISHING_BOBBER_SPLASH
+    struggle: ENTITY_FISHING_BOBBER_SPLASH
     escaped: ENTITY_ITEM_BREAK
     fish-win: ENTITY_FISHING_BOBBER_SPLASH
     caught: ENTITY_PLAYER_LEVELUP
@@ -114,6 +151,7 @@ custom-fishing-minigame:
     wait-ready: '<yellow>Wait for the <green>GO</green> signal before pulling.</yellow>'
     progress: '<gray>[</gray> {rarity} <gray>]</gray> <green>CATCH</green> {bar} <red>TENSION</red> {fish_bar}'
     resistance: '<red>The fish is fighting back!</red> <gray>Pull progress -{loss}%.</gray>'
+    struggle: '<red>STRUGGLE!</red> <gray>The fish surges against the line.</gray>'
     escaped: '<red>The fish broke free.</red>'
     fish-win: '<red>The fish overpowered your line.</red>'
     fish-win-title: '<red>LINE LOST</red>'

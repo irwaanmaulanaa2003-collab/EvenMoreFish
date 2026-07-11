@@ -238,6 +238,38 @@ public class MainConfig extends ConfigBase {
         return getConfig().getDouble("custom-fishing-minigame.fish-escape.pull-reduction", 1.0D);
     }
 
+    public boolean isMinigameStruggleEnabled() {
+        return getConfig().getBoolean("custom-fishing-minigame.struggle-burst.enabled", true);
+    }
+
+    public int getMinigameStruggleIntervalMinTicks() {
+        return getConfig().getInt("custom-fishing-minigame.struggle-burst.interval-min-ticks", 35);
+    }
+
+    public int getMinigameStruggleIntervalMaxTicks() {
+        return getConfig().getInt("custom-fishing-minigame.struggle-burst.interval-max-ticks", 70);
+    }
+
+    public int getMinigameStruggleDurationMillis() {
+        return getConfig().getInt("custom-fishing-minigame.struggle-burst.duration-ms", 1200);
+    }
+
+    public double getMinigameStruggleTensionMultiplier() {
+        return getConfig().getDouble("custom-fishing-minigame.struggle-burst.tension-multiplier", 1.75D);
+    }
+
+    public double getMinigameStruggleChance(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.struggle-burst." + rarityId + ".chance", 10.0D);
+    }
+
+    public int getMinigameStruggleProgressLoss(@NotNull String rarityId) {
+        return getConfig().getInt("custom-fishing-minigame.struggle-burst." + rarityId + ".progress-loss", 3);
+    }
+
+    public double getMinigameStruggleTensionGain(@NotNull String rarityId) {
+        return getConfig().getDouble("custom-fishing-minigame.struggle-burst." + rarityId + ".tension-gain", 4.0D);
+    }
+
     public String getMinigameMessage(@NotNull String key, @NotNull String fallback) {
         return getConfig().getString("custom-fishing-minigame.messages." + key, fallback);
     }
