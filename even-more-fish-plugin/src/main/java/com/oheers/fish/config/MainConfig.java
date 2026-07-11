@@ -214,7 +214,8 @@ public class MainConfig extends ConfigBase {
     }
 
     public float getMinigameSoundVolume() {
-        return (float) getConfig().getDouble("custom-fishing-minigame.sounds.volume", 0.75D);
+        Double volume = getConfig().getDouble("custom-fishing-minigame.sounds.volume", 0.75D);
+        return volume == null ? 0.75F : volume.floatValue();
     }
 
     public double getMinigameResistanceChance(@NotNull String rarityId) {
