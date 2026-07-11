@@ -47,14 +47,28 @@ fishing:
 # Flow: fish bites -> right click to hook -> spam shift to pull.
 custom-fishing-minigame:
   enabled: true
+  # After the fish bites, the player has this many seconds to right click/reel.
   hook-time-seconds: 3
+  # After the player hooks the fish, show READY and count down before Shift pulling starts.
+  ready-delay-seconds: 3
+  # Once pulling starts, the fish escapes if the player does not Shift again within this time.
   escape-time-seconds: 5
   progress-needed: 100
   bobber-pull-strength: 0.18
   messages:
-    bite: '<yellow>Fish is biting! <white>Right click within <aqua>{time}s</aqua> to hook it.'
-    hooked: '<aqua>Hooked!</aqua> <white>Spam <yellow>Shift</yellow> to pull the fish.'
-    progress: '<aqua>Pulling:</aqua> <white>{progress}%</white> <gray>| Fish: {fish}</gray>'
+    bite: '<yellow>Fish is biting!</yellow> <white>Right click within <aqua>{time}s</aqua> to hook it.</white>'
+    bite-title: '<yellow>IKAN MENGGIGIT!</yellow>'
+    bite-subtitle: '<white>Klik kanan dalam <aqua>{time}s</aqua></white>'
+    ready-title: '<green>READY</green>'
+    ready-subtitle: '<white>Get ready to spam <yellow>Shift</yellow>!</white>'
+    ready-countdown: '<green>Ready!</green> <white>Start pulling in <aqua>{time}</aqua>...</white>'
+    ready-countdown-title: '<aqua>{time}</aqua>'
+    ready-countdown-subtitle: '<white>Prepare to spam <yellow>Shift</yellow></white>'
+    go: '<green>GO!</green> <white>Spam <yellow>Shift</yellow> to pull the fish!</white>'
+    go-title: '<green>GO!</green>'
+    go-subtitle: '<white>Spam <yellow>Shift</yellow> now!</white>'
+    wait-ready: '<yellow>Wait for <green>GO!</green> before pulling.</yellow>'
+    progress: '<aqua>Tarikan:</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>'
     resistance: '<red>The fish fought back!</red> <gray>-{loss}% progress.</gray>'
     escaped: '<red>The fish escaped.</red>'
     caught: '<green>You successfully pulled the fish in!</green>'

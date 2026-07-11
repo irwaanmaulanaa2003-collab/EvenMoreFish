@@ -14,6 +14,7 @@ import com.oheers.fish.fishing.rods.RodManager;
 import com.oheers.fish.messages.ConfigMessage;
 import com.oheers.fish.messages.EMFSingleMessage;
 import com.oheers.fish.permissions.UserPerms;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.entity.FishHook;
@@ -33,6 +34,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -152,8 +154,17 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             sendMinigameMessage(player, "bite", "<yellow>Fish is biting! <white>Right click within <aqua>{time}s</aqua> to hook it.", Map.of(
                 "{time}", String.valueOf(MainConfig.getInstance().getMinigameHookTimeSeconds())
             ));
+            sendMinigameTitle(player, "bite-title", "<yellow>IKAN MENGGIGIT!</yellow>", "bite-subtitle", "<white>Klik kanan dalam <aqua>{time}s</aqua></white>", Map.of(
+                "{time}", String.valueOf(MainConfig.getInstance().getMinigameHookTimeSeconds())
+            ));
             int hookTimeoutTicks = Math.max(1, MainConfig.getInstance().getMinigameHookTimeSeconds()) * 20;
             EvenMoreFish.getScheduler().runTaskLater(() -> expireWaitingHook(player.getUniqueId(), newSession), hookTimeoutTicks);
+            return;
+        }
+
+        if (event.getState() == PlayerFishEvent.State.REEL_IN && session != null && session.state == MinigameState.WAITING_HOOK) {
+            event.setCancelled(true);
+            startReadyCountdown(player, session);
             return;
         }
 
@@ -181,15 +192,11 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         if (session == null || session.state != MinigameState.WAITING_HOOK) {
             return;
         }
-        ItemStack item = event.getItem();
-        if (!Checks.canUseRod(item)) {
+        if (!canUseHeldCustomRod(player)) {
             return;
         }
         event.setCancelled(true);
-        session.state = MinigameState.PULLING;
-        session.lastPullMillis = System.currentTimeMillis();
-        sendMinigameMessage(player, "hooked", "<aqua>Hooked!</aqua> <white>Spam <yellow>Shift</yellow> to pull the fish.", Map.of());
-        scheduleEscapeCheck(player.getUniqueId(), session);
+        startReadyCountdown(player, session);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -199,7 +206,14 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         }
         Player player = event.getPlayer();
         MinigameSession session = sessions.get(player.getUniqueId());
-        if (session == null || session.state != MinigameState.PULLING) {
+        if (session == null) {
+            return;
+        }
+        if (session.state == MinigameState.READY_COUNTDOWN) {
+            sendMinigameMessage(player, "wait-ready", "<yellow>Wait for <green>GO!</green> before pulling.", Map.of());
+            return;
+        }
+        if (session.state != MinigameState.PULLING) {
             return;
         }
         if (session.hook == null || !session.hook.isValid()) {
@@ -212,10 +226,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         session.progress = Math.min(MainConfig.getInstance().getMinigameProgressNeeded(), session.progress + pullPower);
         applyResistance(player, session);
         pullBobberTowardPlayer(player, session);
-        sendMinigameMessage(player, "progress", "<aqua>Pulling:</aqua> <white>{progress}%</white> <gray>| Fish: {fish}</gray>", Map.of(
-            "{progress}", String.valueOf(Math.max(0, session.progress)),
-            "{fish}", session.fish.getDisplayName().getPlainTextMessage(player)
-        ));
+        sendProgressMessage(player, session);
 
         if (session.progress >= MainConfig.getInstance().getMinigameProgressNeeded()) {
             completeSession(player, session);
@@ -246,6 +257,68 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return false;
         }
         return true;
+    }
+
+    private void startReadyCountdown(@NotNull Player player, @NotNull MinigameSession session) {
+        if (session.state != MinigameState.WAITING_HOOK) {
+            return;
+        }
+        session.state = MinigameState.READY_COUNTDOWN;
+        session.lastPullMillis = System.currentTimeMillis();
+        sendMinigameTitle(player, "ready-title", "<green>READY</green>", "ready-subtitle", "<white>Get ready to spam <yellow>Shift</yellow>!</white>");
+        runReadyCountdown(player.getUniqueId(), session, Math.max(1, MainConfig.getInstance().getMinigameReadyDelaySeconds()));
+    }
+
+    private void runReadyCountdown(@NotNull UUID uuid, @NotNull MinigameSession expected, int secondsLeft) {
+        Player player = plugin.getServer().getPlayer(uuid);
+        MinigameSession session = sessions.get(uuid);
+        if (player == null || session != expected || session.state != MinigameState.READY_COUNTDOWN) {
+            return;
+        }
+
+        if (secondsLeft > 0) {
+            sendMinigameMessage(player, "ready-countdown", "<green>Ready!</green> <white>Start pulling in <aqua>{time}</aqua>...</white>", Map.of(
+                "{time}", String.valueOf(secondsLeft)
+            ));
+            sendMinigameTitle(player, "ready-countdown-title", "<aqua>{time}</aqua>", "ready-countdown-subtitle", "<white>Prepare to spam <yellow>Shift</yellow></white>", Map.of(
+                "{time}", String.valueOf(secondsLeft)
+            ));
+            EvenMoreFish.getScheduler().runTaskLater(() -> runReadyCountdown(uuid, expected, secondsLeft - 1), 20L);
+            return;
+        }
+
+        session.state = MinigameState.PULLING;
+        session.lastPullMillis = System.currentTimeMillis();
+        sendMinigameMessage(player, "go", "<green>GO!</green> <white>Spam <yellow>Shift</yellow> to pull the fish!</white>", Map.of());
+        sendMinigameTitle(player, "go-title", "<green>GO!</green>", "go-subtitle", "<white>Spam <yellow>Shift</yellow> now!</white>");
+        sendProgressMessage(player, session);
+        scheduleEscapeCheck(uuid, session);
+        scheduleProgressDisplay(uuid, session);
+    }
+
+    private void scheduleProgressDisplay(@NotNull UUID uuid, @NotNull MinigameSession expected) {
+        EvenMoreFish.getScheduler().runTaskLater(() -> {
+            MinigameSession session = sessions.get(uuid);
+            if (session != expected || session.state != MinigameState.PULLING) {
+                return;
+            }
+            Player player = plugin.getServer().getPlayer(uuid);
+            if (player == null) {
+                sessions.remove(uuid);
+                return;
+            }
+            sendProgressMessage(player, session);
+            scheduleProgressDisplay(uuid, expected);
+        }, 20L);
+    }
+
+    private boolean canUseHeldCustomRod(@NotNull Player player) {
+        ItemStack mainHand = player.getInventory().getItem(EquipmentSlot.HAND);
+        if (mainHand != null && mainHand.getType() == Material.FISHING_ROD && Checks.canUseRod(mainHand)) {
+            return true;
+        }
+        ItemStack offHand = player.getInventory().getItem(EquipmentSlot.OFF_HAND);
+        return offHand != null && offHand.getType() == Material.FISHING_ROD && Checks.canUseRod(offHand);
     }
 
     private void expireWaitingHook(@NotNull UUID uuid, @NotNull MinigameSession expected) {
@@ -341,6 +414,48 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         sendMinigameMessage(player, "escaped", "<red>The fish escaped.</red>", Map.of());
     }
 
+    private void sendProgressMessage(@NotNull Player player, @NotNull MinigameSession session) {
+        int needed = Math.max(1, MainConfig.getInstance().getMinigameProgressNeeded());
+        int progress = Math.max(0, Math.min(needed, session.progress));
+        int percent = (int) Math.round((progress * 100.0D) / needed);
+        sendMinigameMessage(player, "progress", "<aqua>Tarikan:</aqua> <white>{progress}%</white> <gray>{bar}</gray> <dark_gray>|</dark_gray> <gray>{fish}</gray>", Map.of(
+            "{progress}", String.valueOf(percent),
+            "{bar}", getProgressBar(percent),
+            "{fish}", session.fish.getDisplayName().getPlainTextMessage(player)
+        ));
+    }
+
+    private @NotNull String getProgressBar(int percent) {
+        int filled = Math.max(0, Math.min(10, percent / 10));
+        StringBuilder builder = new StringBuilder("<green>");
+        for (int i = 0; i < filled; i++) {
+            builder.append('█');
+        }
+        builder.append("<dark_gray>");
+        for (int i = filled; i < 10; i++) {
+            builder.append('█');
+        }
+        return builder.toString();
+    }
+
+    private void sendMinigameTitle(@NotNull Player player, @NotNull String titleKey, @NotNull String titleFallback, @NotNull String subtitleKey, @NotNull String subtitleFallback) {
+        sendMinigameTitle(player, titleKey, titleFallback, subtitleKey, subtitleFallback, Map.of());
+    }
+
+    private void sendMinigameTitle(@NotNull Player player, @NotNull String titleKey, @NotNull String titleFallback, @NotNull String subtitleKey, @NotNull String subtitleFallback, @NotNull Map<String, String> variables) {
+        String configuredTitle = MainConfig.getInstance().getMinigameMessage(titleKey, titleFallback);
+        String configuredSubtitle = MainConfig.getInstance().getMinigameMessage(subtitleKey, subtitleFallback);
+        EMFSingleMessage title = EMFSingleMessage.fromString(configuredTitle);
+        EMFSingleMessage subtitle = EMFSingleMessage.fromString(configuredSubtitle);
+        variables.forEach(title::setVariable);
+        variables.forEach(subtitle::setVariable);
+        player.showTitle(Title.title(
+            title.getComponentMessage(player),
+            subtitle.getComponentMessage(player),
+            Title.Times.times(Duration.ofMillis(100), Duration.ofMillis(900), Duration.ofMillis(200))
+        ));
+    }
+
     private void sendMinigameMessage(@NotNull Player player, @NotNull String key, @NotNull String fallback, @NotNull Map<String, String> variables) {
         String configured = MainConfig.getInstance().getMinigameMessage(key, fallback);
         EMFSingleMessage message = EMFSingleMessage.fromString(configured);
@@ -420,6 +535,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
 
     private enum MinigameState {
         WAITING_HOOK,
+        READY_COUNTDOWN,
         PULLING
     }
 

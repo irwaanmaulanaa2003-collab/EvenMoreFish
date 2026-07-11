@@ -177,6 +177,10 @@ public class MainConfig extends ConfigBase {
         return getConfig().getInt("custom-fishing-minigame.hook-time-seconds", 3);
     }
 
+    public int getMinigameReadyDelaySeconds() {
+        return getConfig().getInt("custom-fishing-minigame.ready-delay-seconds", 3);
+    }
+
     public int getMinigameEscapeTimeSeconds() {
         return getConfig().getInt("custom-fishing-minigame.escape-time-seconds", 5);
     }
