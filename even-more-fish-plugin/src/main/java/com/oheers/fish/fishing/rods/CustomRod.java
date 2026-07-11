@@ -37,6 +37,7 @@ public class CustomRod extends ConfigBase implements ICustomRod {
     private final Map<String, Double> rarityWeights;
     private final int pullPower;
     private final double resistanceReduction;
+    private final double biteSpeedBonus;
 
     public CustomRod(@NotNull File file) throws InvalidConfigurationException {
         super(file, EvenMoreFish.getInstance(), false);
@@ -47,6 +48,7 @@ public class CustomRod extends ConfigBase implements ICustomRod {
         this.rarityWeights = loadRarityWeights();
         this.pullPower = getConfig().getInt("pull-power", 3);
         this.resistanceReduction = getConfig().getDouble("resistance-reduction", 0.0D);
+        this.biteSpeedBonus = getConfig().getDouble("bite-speed-bonus", 0.0D);
         this.factory.setFinalChanges(item ->
             NBT.modify(item, nbt -> {
                 ReadWriteNBT emfCompound = nbt.getOrCreateCompound(NbtKeys.EMF_COMPOUND);
@@ -190,6 +192,10 @@ public class CustomRod extends ConfigBase implements ICustomRod {
 
     public double getResistanceReduction() {
         return resistanceReduction;
+    }
+
+    public double getBiteSpeedBonus() {
+        return biteSpeedBonus;
     }
 
 }

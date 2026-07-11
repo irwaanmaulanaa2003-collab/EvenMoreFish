@@ -129,24 +129,27 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
         ItemStack rod = getRod(event);
+        CustomRod customRod = getHeldCustomRod(rod);
 
         if (event.getState() == PlayerFishEvent.State.FISHING) {
             sessions.remove(uuid);
-            if (!canStartCustomFishing(player, rod, true)) {
-                if (MainConfig.getInstance().blockVanillaRodWhenCustomRequired()) {
-                    event.setCancelled(true);
-                }
+            if (customRod == null) {
+                // Vanilla rods are allowed to fish normally, but they will not receive custom EMF fish.
                 return;
             }
+            if (!canStartCustomFishing(player, rod, true)) {
+                event.setCancelled(true);
+                return;
+            }
+            applyBiteSpeedBonus(event.getHook(), customRod);
             return;
         }
 
         MinigameSession session = sessions.get(uuid);
         if (event.getState() == PlayerFishEvent.State.BITE) {
-            if (!canStartCustomFishing(player, rod, false)) {
+            if (customRod == null || !canStartCustomFishing(player, rod, false)) {
                 return;
             }
-            CustomRod customRod = RodManager.getInstance().getRod(rod);
             Fish fish = chooseFish(player, event.getHook().getLocation(), null, customRod);
             if (fish == null) {
                 return;
@@ -172,12 +175,10 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return;
         }
 
-        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH || event.getState() == PlayerFishEvent.State.REEL_IN) {
-            if (session != null || MainConfig.getInstance().blockVanillaRodWhenCustomRequired()) {
-                event.setCancelled(true);
-                if (event.getCaught() instanceof Item item) {
-                    item.remove();
-                }
+        if (session != null && (event.getState() == PlayerFishEvent.State.CAUGHT_FISH || event.getState() == PlayerFishEvent.State.REEL_IN)) {
+            event.setCancelled(true);
+            if (event.getCaught() instanceof Item item) {
+                item.remove();
             }
         }
     }
@@ -248,7 +249,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
     private boolean canStartCustomFishing(@NotNull Player player, @Nullable ItemStack rod, boolean notify) {
         if (rod == null || !Checks.canUseRod(rod)) {
             if (notify && MainConfig.getInstance().requireCustomRod() && MainConfig.getInstance().blockVanillaRodWhenCustomRequired()) {
-                sendMinigameMessage(player, "vanilla-rod-blocked", "<red>You need a custom fishing rod to fish here.</red>", Map.of());
+                sendMinigameMessage(player, "vanilla-rod-blocked", "<red>You need a custom fishing rod to catch custom fish.</red>", Map.of());
             }
             return false;
         }
@@ -262,6 +263,27 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
             return false;
         }
         return true;
+    }
+
+    private @Nullable CustomRod getHeldCustomRod(@Nullable ItemStack rod) {
+        if (rod == null || rod.getType() != Material.FISHING_ROD) {
+            return null;
+        }
+        return RodManager.getInstance().getRod(rod);
+    }
+
+    private void applyBiteSpeedBonus(@NotNull FishHook hook, @NotNull CustomRod customRod) {
+        double bonus = Math.max(0.0D, Math.min(80.0D, customRod.getBiteSpeedBonus()));
+        if (bonus <= 0.0D) {
+            return;
+        }
+        double multiplier = Math.max(0.2D, 1.0D - (bonus / 100.0D));
+        int currentMin = Math.max(1, hook.getMinWaitTime());
+        int currentMax = Math.max(currentMin + 1, hook.getMaxWaitTime());
+        int newMin = Math.max(20, (int) Math.round(currentMin * multiplier));
+        int newMax = Math.max(newMin + 20, (int) Math.round(currentMax * multiplier));
+        hook.setMinWaitTime(newMin);
+        hook.setMaxWaitTime(newMax);
     }
 
     private void startReadyCountdown(@NotNull Player player, @NotNull MinigameSession session) {

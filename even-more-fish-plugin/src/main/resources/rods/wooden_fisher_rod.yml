@@ -9,6 +9,7 @@ rarity-weights:
   Common: 87
   Rare: 1
 pull-power: 3
+bite-speed-bonus: 0
 resistance-reduction: 0.0
 item:
   material: FISHING_ROD
@@ -24,6 +25,7 @@ item:
     - '<white>Luck: <green>+0%</green></white>'
     - '<white>Durability: <red>Breakable</red></white>'
     - '<white>Access: <gray>Starter rod for basic fishing rewards.</gray></white>'
+    - '<white>Bite Speed: <aqua>+0%</aqua></white>'
     - '<white>Pull Power: <yellow>+3</yellow></white>'
     - ''
     - '<dark_gray>Right-click water to begin fishing.</dark_gray>'

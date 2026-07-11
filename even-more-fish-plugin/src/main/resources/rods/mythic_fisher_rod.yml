@@ -17,6 +17,7 @@ rarity-weights:
   Mythic: 0.9
   Divine: 0.1
 pull-power: 10
+bite-speed-bonus: 35
 resistance-reduction: 14.0
 item:
   material: FISHING_ROD
@@ -32,6 +33,7 @@ item:
     - '<white>Luck: <green>+70%</green></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - '<white>Access: <gray>Very small Divine chance unlocked.</gray></white>'
+    - '<white>Bite Speed: <aqua>+35%</aqua></white>'
     - '<white>Pull Power: <yellow>+10</yellow></white>'
     - ''
     - '<dark_gray>Right-click water to begin fishing.</dark_gray>'

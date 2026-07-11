@@ -13,6 +13,7 @@ rarity-weights:
   Epic: 6
   Legendary: 1
 pull-power: 7
+bite-speed-bonus: 20
 resistance-reduction: 8.0
 item:
   material: FISHING_ROD
@@ -28,6 +29,7 @@ item:
     - '<white>Luck: <green>+40%</green></white>'
     - '<white>Durability: <green>Unbreakable</green></white>'
     - '<white>Access: <gray>Higher Epic and Legendary chance.</gray></white>'
+    - '<white>Bite Speed: <aqua>+20%</aqua></white>'
     - '<white>Pull Power: <yellow>+7</yellow></white>'
     - ''
     - '<dark_gray>Right-click water to begin fishing.</dark_gray>'
