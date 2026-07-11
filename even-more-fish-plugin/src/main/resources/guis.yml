@@ -476,7 +476,10 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+5%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+4</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Wooden Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>25</aqua></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: b
     click-action: buy-rod-stone_fisher_rod
 
@@ -494,7 +497,10 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+10%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+5</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Stone Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>75</aqua> <dark_gray>|</dark_gray> Rare: <aqua>3</aqua></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: c
     click-action: buy-rod-iron_fisher_rod
 
@@ -512,7 +518,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+15%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+6</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Iron Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>150</aqua></gray>'
+        - '<gray>Rare: <aqua>10</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>1</light_purple></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: d
     click-action: buy-rod-golden_fisher_rod
 
@@ -530,7 +540,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+20%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+7</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Golden Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>300</aqua></gray>'
+        - '<gray>Rare: <aqua>25</aqua> <dark_gray>|</dark_gray> Epic: <light_purple>5</light_purple></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: e
     click-action: buy-rod-diamond_fisher_rod
 
@@ -548,7 +562,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+25%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+8</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Diamond Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>500</aqua></gray>'
+        - '<gray>Epic: <light_purple>15</light_purple> <dark_gray>|</dark_gray> Legendary: <gold>1</gold></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: f
     click-action: buy-rod-emerald_fisher_rod
 
@@ -566,7 +584,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+30%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+9</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Emerald Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>800</aqua></gray>'
+        - '<gray>Epic: <light_purple>30</light_purple> <dark_gray>|</dark_gray> Legendary: <gold>3</gold></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: g
     click-action: buy-rod-netherite_fisher_rod
 
@@ -584,7 +606,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+35%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+10</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Netherite Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>1,200</aqua></gray>'
+        - '<gray>Legendary: <gold>8</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>1</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: h
     click-action: buy-rod-mythic_fisher_rod
 
@@ -602,7 +628,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+40%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+11</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Mythic Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>1,800</aqua></gray>'
+        - '<gray>Legendary: <gold>15</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>3</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: i
     click-action: buy-rod-celestial_fisher_rod
 
@@ -620,7 +650,11 @@ rod-shop-menu:
         - '<gray>Bite Speed: <aqua>+45%</aqua></gray>'
         - '<gray>Pull Power: <yellow>+12</yellow></gray>'
         - ''
-        - '<yellow>Click to buy.</yellow>'
+        - '<gray>Requires: <white>Celestial Rod</white></gray>'
+        - '<gray>Total Catches: <aqua>2,500</aqua></gray>'
+        - '<gray>Legendary: <gold>25</gold> <dark_gray>|</dark_gray> Mythic: <dark_purple>8</dark_purple></gray>'
+        - ''
+        - '<yellow>Click to upgrade.</yellow>'
     character: j
     click-action: buy-rod-divine_fisher_rod
 

@@ -260,6 +260,18 @@ public class MainConfig extends ConfigBase {
         return getConfig().getDouble("rod-shop.prices." + rodId, -1.0D);
     }
 
+    public boolean isRodUpgradeRequirementsEnabled() {
+        return getConfig().getBoolean("rod-shop.upgrade-requirements.enabled", true);
+    }
+
+    public boolean shouldConsumePreviousRod() {
+        return getConfig().getBoolean("rod-shop.upgrade-requirements.consume-previous-rod", true);
+    }
+
+    public @Nullable Section getRodUpgradeRequirement(@NotNull String rodId) {
+        return getConfig().getSection("rod-shop.upgrade-requirements.requirements." + rodId);
+    }
+
     public boolean requireFishingPermission() {
         return getConfig().getBoolean("requires-fishing-permission", false);
     }

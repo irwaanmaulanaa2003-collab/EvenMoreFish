@@ -11,6 +11,7 @@ import com.oheers.fish.fishing.Processor;
 import com.oheers.fish.fishing.items.Fish;
 import com.oheers.fish.fishing.rods.CustomRod;
 import com.oheers.fish.fishing.rods.RodManager;
+import com.oheers.fish.fishing.rods.RodUpgradeManager;
 import com.oheers.fish.messages.ConfigMessage;
 import com.oheers.fish.messages.EMFSingleMessage;
 import com.oheers.fish.permissions.UserPerms;
@@ -478,6 +479,7 @@ public class FishingProcessor extends Processor<PlayerFishEvent> implements List
         if (session.hook != null && session.hook.isValid()) {
             session.hook.remove();
         }
+        RodUpgradeManager.getInstance().recordCatch(player, session.fish.getRarity().getId());
         playMinigameSound(player, "caught", "ENTITY_PLAYER_LEVELUP", 1.2F);
         sendMinigameMessage(player, "caught", "<green>Catch secured.</green> <white>The fish has been reeled in.</white>", Map.of());
     }

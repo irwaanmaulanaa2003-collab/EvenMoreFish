@@ -158,6 +158,64 @@ rod-shop:
     mythic_fisher_rod: 2000000
     celestial_fisher_rod: 3250000
     divine_fisher_rod: 5000000
+  upgrade-requirements:
+    enabled: true
+    # If true, buying a higher tier consumes the previous rod.
+    # This prevents players from skipping or keeping every upgrade for free.
+    consume-previous-rod: true
+    requirements:
+      wooden_fisher_rod:
+        total-catches: 0
+      stone_fisher_rod:
+        previous-rod: wooden_fisher_rod
+        total-catches: 25
+      iron_fisher_rod:
+        previous-rod: stone_fisher_rod
+        total-catches: 75
+        rarities:
+          Rare: 3
+      golden_fisher_rod:
+        previous-rod: iron_fisher_rod
+        total-catches: 150
+        rarities:
+          Rare: 10
+          Epic: 1
+      diamond_fisher_rod:
+        previous-rod: golden_fisher_rod
+        total-catches: 300
+        rarities:
+          Rare: 25
+          Epic: 5
+      emerald_fisher_rod:
+        previous-rod: diamond_fisher_rod
+        total-catches: 500
+        rarities:
+          Epic: 15
+          Legendary: 1
+      netherite_fisher_rod:
+        previous-rod: emerald_fisher_rod
+        total-catches: 800
+        rarities:
+          Epic: 30
+          Legendary: 3
+      mythic_fisher_rod:
+        previous-rod: netherite_fisher_rod
+        total-catches: 1200
+        rarities:
+          Legendary: 8
+          Mythic: 1
+      celestial_fisher_rod:
+        previous-rod: mythic_fisher_rod
+        total-catches: 1800
+        rarities:
+          Legendary: 15
+          Mythic: 3
+      divine_fisher_rod:
+        previous-rod: celestial_fisher_rod
+        total-catches: 2500
+        rarities:
+          Legendary: 25
+          Mythic: 8
 
 # Backs up active competitions to a file.
 # Useful for crashes and such.
